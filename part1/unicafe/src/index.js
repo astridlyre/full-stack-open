@@ -30,6 +30,12 @@ const Button = ({ text, handler }) => (
   </button>
 );
 
+const Statistic = ({ text, value }) => (
+  <span>
+    {text} {value}
+  </span>
+);
+
 const Statistics = ({ subheading, feedbackTypes, feedbackValues }) => {
   const { good, neutral, bad } = feedbackValues;
   const total = good + neutral + bad;
@@ -42,18 +48,15 @@ const Statistics = ({ subheading, feedbackTypes, feedbackValues }) => {
       {!isFeedBack() && <div>No Feedback given</div>}
       {isFeedBack() && (
         <div className='grid-3-col'>
-          <span>
-            {feedbackTypes[0]} {good}
-          </span>
-          <span>
-            {feedbackTypes[1]} {neutral}
-          </span>
-          <span>
-            {feedbackTypes[2]} {bad}
-          </span>
-          <span>total {total}</span>
-          <span>average {average()}</span>
-          <span>positive {Math.round((good / total) * 100)}%</span>
+          <Statistic text={feedbackTypes[0]} value={good} />
+          <Statistic text={feedbackTypes[1]} value={neutral} />
+          <Statistic text={feedbackTypes[2]} value={bad} />
+          <Statistic text='total' value={total} />
+          <Statistic text='average' value={average()} />
+          <Statistic
+            text='positive'
+            value={Math.round((good / total) * 100) + "%"}
+          />
         </div>
       )}
     </section>
