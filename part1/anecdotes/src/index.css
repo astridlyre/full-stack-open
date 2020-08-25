@@ -1,0 +1,93 @@
+html {
+  box-sizing: border-box;
+  padding: 0;
+  vertical-align: middle;
+  margin: 0;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url("./img/bg-img.jpg");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+
+  color: #431e17;
+}
+
+main {
+  width: 60vw;
+  height: 60vh;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e6ece4;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  border: none;
+  outline: none;
+}
+
+button + button {
+  margin-left: 0.5rem;
+}
+
+button:hover {
+  background: #dc8e6e;
+  transition: all 0.2s ease-out;
+  outline: none;
+}
+
+.vote {
+  background: #77a559;
+  transition: all 0.2s ease-out;
+}
+
+.next {
+  background: #431e17;
+  transition: all 0.2s ease-out;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.flex-row-center {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 3rem;
+}
+
+blockquote {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.quote {
+  min-height: 12rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
