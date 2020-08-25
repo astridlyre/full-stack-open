@@ -34,25 +34,28 @@ const Statistics = ({ subheading, feedbackTypes, feedbackValues }) => {
   const { good, neutral, bad } = feedbackValues;
   const total = good + neutral + bad;
   const average = () => (total ? ((good - bad) / total).toFixed(2) : 0);
-  const positive = Math.round((good / total) * 100);
+  const isFeedBack = () => (total > 0 ? true : false);
 
   return (
     <section className='pt-4'>
       <h2>{subheading}</h2>
-      <div className='grid-3-col'>
-        <span>
-          {feedbackTypes[0]} {feedbackValues.good}
-        </span>
-        <span>
-          {feedbackTypes[1]} {feedbackValues.neutral}
-        </span>
-        <span>
-          {feedbackTypes[2]} {feedbackValues.bad}
-        </span>
-        <span>total {total}</span>
-        <span>average {average() || "0.00"}</span>
-        <span>positive {positive || "0"}%</span>
-      </div>
+      {!isFeedBack() && <div>No Feedback given</div>}
+      {isFeedBack() && (
+        <div className='grid-3-col'>
+          <span>
+            {feedbackTypes[0]} {good}
+          </span>
+          <span>
+            {feedbackTypes[1]} {neutral}
+          </span>
+          <span>
+            {feedbackTypes[2]} {bad}
+          </span>
+          <span>total {total}</span>
+          <span>average {average()}</span>
+          <span>positive {Math.round((good / total) * 100)}%</span>
+        </div>
+      )}
     </section>
   );
 };

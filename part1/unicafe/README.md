@@ -7,3 +7,7 @@ I spruced it up a little bit with some CSS and I made the background img change 
 #### 1.7 Unicafe Step 2
 
 Added total, average & positive statistics. Formatted the results a bit to make them look nicer.
+
+#### 1.8 & 1.9 Unicafe Steps 3 & 4
+
+I did these two steps together.
