@@ -37,6 +37,11 @@ const App = () => {
   // quotes array of objects
   const [anecdotes, setScore] = useState(quotes);
 
+  // current quote in state
+  const [currentQuote, setCurrentQuote] = useState([0, anecdotes[0]]);
+
+  // iterate through array to find top quote each time you vote, there's
+  // probably a better way to do this.
   const getTopQuote = () => {
     let num = 0;
     let index = 0;
@@ -49,6 +54,7 @@ const App = () => {
     return index;
   };
 
+  // top quote in state
   const [topQuote, setTopQuote] = useState(anecdotes[getTopQuote()]);
 
   // way to get random index
@@ -57,13 +63,8 @@ const App = () => {
     setCurrentQuote([currentQuoteIndex, anecdotes[currentQuoteIndex]]);
   };
 
-  // current quote in state
-  const [currentQuote, setCurrentQuote] = useState([0, anecdotes[0]]);
-
   // vote button click handler
   const voteForQuote = () => {
-    console.log(anecdotes);
-    console.log(currentQuote);
     let state = [...anecdotes];
     state[currentQuote[0]].score += 1;
     setTopQuote(anecdotes[getTopQuote()]);

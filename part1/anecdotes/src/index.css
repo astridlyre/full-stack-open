@@ -16,12 +16,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("./img/bg-img.jpg");
-  background-position: center;
-  background-size: cover;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+
   align-items: center;
   height: 100vh;
   width: 100vw;
@@ -29,14 +26,9 @@ body {
   color: #431e17;
 }
 
-main {
-  width: 60vw;
-  height: 60vh;
-}
-
 button {
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #e6ece4;
   border-radius: 0.5rem;
@@ -90,4 +82,45 @@ blockquote {
 
 h3 {
   font-size: 1.5rem;
+}
+
+@media only screen and (orientation: landscape) {
+  body {
+    background-image: url("./img/bg-img.jpg");
+    background-position: center;
+    background-size: cover;
+    justify-content: center;
+  }
+
+  main {
+    width: 60vw;
+    height: 60vh;
+  }
+}
+@media only screen and (orientation: portrait) {
+  body {
+    background-image: url("./img/bg-portrait.jpg");
+    background-position: bottom;
+    background-size: cover;
+    justify-content: flex-start;
+    padding-top: 4rem;
+  }
+  main {
+    width: 80vw;
+    height: 80vh;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+  main {
+    width: 90vw;
+    height: 80vh;
+  }
+  button {
+    width: 50%;
+    height: 4rem;
+  }
 }
