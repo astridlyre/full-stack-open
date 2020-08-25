@@ -30,22 +30,32 @@ const Button = ({ text, handler }) => (
   </button>
 );
 
-const Statistics = ({ subheading, feedbackTypes, feedbackValues }) => (
-  <section>
-    <h2>{subheading}</h2>
-    <div className='grid-3-col'>
-      <span>
-        {feedbackTypes[0]} {feedbackValues.good}
-      </span>
-      <span>
-        {feedbackTypes[1]} {feedbackValues.neutral}
-      </span>
-      <span>
-        {feedbackTypes[2]} {feedbackValues.bad}
-      </span>
-    </div>
-  </section>
-);
+const Statistics = ({ subheading, feedbackTypes, feedbackValues }) => {
+  const { good, neutral, bad } = feedbackValues;
+  const total = good + neutral + bad;
+  const average = () => (total ? ((good - bad) / total).toFixed(2) : 0);
+  const positive = Math.round((good / total) * 100);
+
+  return (
+    <section className='pt-4'>
+      <h2>{subheading}</h2>
+      <div className='grid-3-col'>
+        <span>
+          {feedbackTypes[0]} {feedbackValues.good}
+        </span>
+        <span>
+          {feedbackTypes[1]} {feedbackValues.neutral}
+        </span>
+        <span>
+          {feedbackTypes[2]} {feedbackValues.bad}
+        </span>
+        <span>total {total}</span>
+        <span>average {average() || "0.00"}</span>
+        <span>positive {positive || "0"}%</span>
+      </div>
+    </section>
+  );
+};
 
 const App = () => {
   const [feedback, setFeedback] = useState({ good: 0, neutral: 0, bad: 0 });
