@@ -4,6 +4,7 @@ import "./assets/css/App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Contacts from "./components/Contacts";
+import Filter from "./components/Filter";
 
 const App = ({ siteInfo }) => {
   const [persons, setPersons] = useState([
@@ -14,6 +15,17 @@ const App = ({ siteInfo }) => {
   ]);
   const [formName, setFormName] = useState("");
   const [formNumber, setFormNumber] = useState("");
+  const [filterInput, setFilterInput] = useState("");
+
+  const personsToShow = !filterInput
+    ? persons
+    : persons.filter((person) =>
+        person.name.toLowerCase().includes(filterInput.toLowerCase())
+      );
+
+  const filterContacts = (event) => {
+    setFilterInput(event.target.value);
+  };
 
   const handleNameStateChange = (event) => {
     setFormName(event.target.value);
@@ -21,6 +33,16 @@ const App = ({ siteInfo }) => {
 
   const handleNumberStateChange = (event) => {
     setFormNumber(event.target.value);
+  };
+
+  const deleteContact = (id) => {
+    let array = [];
+    persons.forEach((person) => {
+      if (person.id !== id) {
+        array.push(person);
+      }
+    });
+    setPersons(array);
   };
 
   const addNewName = (event) => {
@@ -42,9 +64,10 @@ const App = ({ siteInfo }) => {
   };
 
   return (
-    <main className='pt-8 flex flex-col items-center'>
+    <main className='pt-8 flex flex-col items-center relative'>
       <div className='p-8 max-w-screen-md bg-gray-100 bg-opacity-75 rounded'>
         <Header title={siteInfo.title} />
+        <Filter filterInput={filterInput} filterContacts={filterContacts} />
         <NewName
           formName={formName}
           formNumber={formNumber}
@@ -52,7 +75,7 @@ const App = ({ siteInfo }) => {
           handleNumberStateChange={handleNumberStateChange}
           addNewName={addNewName}
         />
-        <Contacts persons={persons} />
+        <Contacts persons={personsToShow} deleteContact={deleteContact} />
         <Footer siteInfo={siteInfo} />
       </div>
     </main>

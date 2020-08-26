@@ -11,7 +11,7 @@ const NewName = ({
   <section className='py-8'>
     <form
       onSubmit={addNewName}
-      className='font-display text-gray-900 font-semibold font-sm grid grid-cols-2 gap-4'>
+      className='p-4 font-display bg-red-700 rounded text-red-100 font-semibold font-sm grid grid-cols-2 gap-4'>
       <label htmlFor='name' className='flex flex-col'>
         <span>Name</span>
         <input
@@ -37,7 +37,7 @@ const NewName = ({
       <div className='text-right col-span-2'>
         <Button
           text='Add Number'
-          look='py-2 px-8 bg-red-700 text-red-100 text-sm font-semibold font-display rounded hover:bg-red-900'
+          look='py-2 px-8 bg-gray-900 text-gray-100 text-sm font-semibold font-display rounded hover:bg-gray-800'
         />
       </div>
     </form>
