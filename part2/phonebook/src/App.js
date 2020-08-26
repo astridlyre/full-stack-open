@@ -64,7 +64,7 @@ const App = ({ siteInfo }) => {
   };
 
   return (
-    <main className='pt-8 flex flex-col items-center relative'>
+    <main className='pt-8 flex flex-col items-center relative min-h-screen'>
       <div className='p-8 max-w-screen-md bg-gray-100 bg-opacity-75 rounded'>
         <Header title={siteInfo.title} />
         <Filter filterInput={filterInput} filterContacts={filterContacts} />
