@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/full-stack-open/part2/build/static/css/main.ecab7148.chunk.css",
-    "main.js": "/full-stack-open/part2/build/static/js/main.df6ee75c.chunk.js",
-    "main.js.map": "/full-stack-open/part2/build/static/js/main.df6ee75c.chunk.js.map",
-    "runtime-main.js": "/full-stack-open/part2/build/static/js/runtime-main.e09f5b12.js",
-    "runtime-main.js.map": "/full-stack-open/part2/build/static/js/runtime-main.e09f5b12.js.map",
-    "static/js/2.47916d12.chunk.js": "/full-stack-open/part2/build/static/js/2.47916d12.chunk.js",
-    "static/js/2.47916d12.chunk.js.map": "/full-stack-open/part2/build/static/js/2.47916d12.chunk.js.map",
-    "index.html": "/full-stack-open/part2/build/index.html",
-    "precache-manifest.af20ca4e6d27b08a65e153031a48f61b.js": "/full-stack-open/part2/build/precache-manifest.af20ca4e6d27b08a65e153031a48f61b.js",
-    "service-worker.js": "/full-stack-open/part2/build/service-worker.js",
-    "static/css/main.ecab7148.chunk.css.map": "/full-stack-open/part2/build/static/css/main.ecab7148.chunk.css.map",
-    "static/js/2.47916d12.chunk.js.LICENSE.txt": "/full-stack-open/part2/build/static/js/2.47916d12.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/full-stack-open/part2/build/static/media/bg.c37b01f4.jpg"
+    "main.css": "/full-stack-open/part2/phonebook/build/static/css/main.b3cac7ef.chunk.css",
+    "main.js": "/full-stack-open/part2/phonebook/build/static/js/main.df6ee75c.chunk.js",
+    "main.js.map": "/full-stack-open/part2/phonebook/build/static/js/main.df6ee75c.chunk.js.map",
+    "runtime-main.js": "/full-stack-open/part2/phonebook/build/static/js/runtime-main.2df0e249.js",
+    "runtime-main.js.map": "/full-stack-open/part2/phonebook/build/static/js/runtime-main.2df0e249.js.map",
+    "static/js/2.47916d12.chunk.js": "/full-stack-open/part2/phonebook/build/static/js/2.47916d12.chunk.js",
+    "static/js/2.47916d12.chunk.js.map": "/full-stack-open/part2/phonebook/build/static/js/2.47916d12.chunk.js.map",
+    "index.html": "/full-stack-open/part2/phonebook/build/index.html",
+    "precache-manifest.a50def0a96864a68135e780dde285d99.js": "/full-stack-open/part2/phonebook/build/precache-manifest.a50def0a96864a68135e780dde285d99.js",
+    "service-worker.js": "/full-stack-open/part2/phonebook/build/service-worker.js",
+    "static/css/main.b3cac7ef.chunk.css.map": "/full-stack-open/part2/phonebook/build/static/css/main.b3cac7ef.chunk.css.map",
+    "static/js/2.47916d12.chunk.js.LICENSE.txt": "/full-stack-open/part2/phonebook/build/static/js/2.47916d12.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/full-stack-open/part2/phonebook/build/static/media/bg.c37b01f4.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.e09f5b12.js",
+    "static/js/runtime-main.2df0e249.js",
     "static/js/2.47916d12.chunk.js",
-    "static/css/main.ecab7148.chunk.css",
+    "static/css/main.b3cac7ef.chunk.css",
     "static/js/main.df6ee75c.chunk.js"
   ]
 }
