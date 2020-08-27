@@ -28,7 +28,7 @@ const Contacts = ({ persons, deleteContact }) => {
         {persons.map((person) => (
           <li
             key={person.id}
-            className='mb-2 py-2 px-6 bg-gray-100 rounded text-gray-900 flex justify-between items-center'>
+            className='mb-2 py-2 px-6 bg-gray-100 rounded text-gray-900 flex flex-row justify-between items-center hover:bg-red-100'>
             <Contact person={person} />
             <Button
               text={icon}
