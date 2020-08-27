@@ -11,3 +11,7 @@ Added feature to prevent adding duplicate names. Used the alert command to issue
 #### 2.8 - 2.10
 
 Added feature to let users add phone numbers, as well as filter by name. I also refactored the app to be more in components.
+
+#### Build
+
+Hosted a static build on github pages for fun.

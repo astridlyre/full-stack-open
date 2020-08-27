@@ -7,12 +7,17 @@ import Contacts from "./components/Contacts";
 import Filter from "./components/Filter";
 
 const App = ({ siteInfo }) => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", number: "040-123456", id: 1 },
-    { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
-    { name: "Dan Abramov", number: "12-43-234345", id: 3 },
-    { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
-  ]);
+  const getStorage =
+    localStorage.getItem("numbers") !== ""
+      ? JSON.parse(localStorage.getItem("numbers"))
+      : [
+          { name: "Arto Hellas", number: "040-123456", id: 1 },
+          { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
+          { name: "Dan Abramov", number: "12-43-234345", id: 3 },
+          { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
+        ];
+  const [persons, setPersons] = useState(getStorage);
+  const setStorage = localStorage.setItem("numbers", JSON.stringify(persons));
   const [formName, setFormName] = useState("");
   const [formNumber, setFormNumber] = useState("");
   const [filterInput, setFilterInput] = useState("");

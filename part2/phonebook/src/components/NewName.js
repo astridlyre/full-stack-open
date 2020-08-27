@@ -18,7 +18,7 @@ const NewName = ({
           id='name'
           type='text'
           max='30'
-          className='form-input'
+          className='form-input text-gray-900'
           value={formName}
           onChange={handleNameStateChange}
         />
@@ -29,7 +29,7 @@ const NewName = ({
           id='number'
           type='text'
           max='13'
-          className='form-input'
+          className='form-input text-gray-900'
           value={formNumber}
           onChange={handleNumberStateChange}
         />

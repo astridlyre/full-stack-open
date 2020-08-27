@@ -1,5 +1,8 @@
 module.exports = {
-  purge: [],
+  purge: {
+    enabled: true,
+    content: ["./src/**/*.html", "./src/**/*.js", "./src/**/*.jsx"],
+  },
   theme: {
     fontFamily: {
       display: ["Montserrat"],
