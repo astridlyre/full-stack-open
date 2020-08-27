@@ -1,6 +1,7 @@
 {
   "name": "phonebook",
   "version": "0.1.0",
+  "homepage": "/full-stack-open/part2/build/",
   "private": true,
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.3.0",

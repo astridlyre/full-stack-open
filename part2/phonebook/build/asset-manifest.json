@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.fd917220.chunk.css",
-    "main.js": "/static/js/main.df6ee75c.chunk.js",
-    "main.js.map": "/static/js/main.df6ee75c.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.4234e0d5.js",
-    "runtime-main.js.map": "/static/js/runtime-main.4234e0d5.js.map",
-    "static/js/2.47916d12.chunk.js": "/static/js/2.47916d12.chunk.js",
-    "static/js/2.47916d12.chunk.js.map": "/static/js/2.47916d12.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.85488488846a92b322f6312e84ff562d.js": "/precache-manifest.85488488846a92b322f6312e84ff562d.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.fd917220.chunk.css.map": "/static/css/main.fd917220.chunk.css.map",
-    "static/js/2.47916d12.chunk.js.LICENSE.txt": "/static/js/2.47916d12.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/static/media/bg.c37b01f4.jpg"
+    "main.css": "/full-stack-open/part2/build/static/css/main.ecab7148.chunk.css",
+    "main.js": "/full-stack-open/part2/build/static/js/main.df6ee75c.chunk.js",
+    "main.js.map": "/full-stack-open/part2/build/static/js/main.df6ee75c.chunk.js.map",
+    "runtime-main.js": "/full-stack-open/part2/build/static/js/runtime-main.e09f5b12.js",
+    "runtime-main.js.map": "/full-stack-open/part2/build/static/js/runtime-main.e09f5b12.js.map",
+    "static/js/2.47916d12.chunk.js": "/full-stack-open/part2/build/static/js/2.47916d12.chunk.js",
+    "static/js/2.47916d12.chunk.js.map": "/full-stack-open/part2/build/static/js/2.47916d12.chunk.js.map",
+    "index.html": "/full-stack-open/part2/build/index.html",
+    "precache-manifest.af20ca4e6d27b08a65e153031a48f61b.js": "/full-stack-open/part2/build/precache-manifest.af20ca4e6d27b08a65e153031a48f61b.js",
+    "service-worker.js": "/full-stack-open/part2/build/service-worker.js",
+    "static/css/main.ecab7148.chunk.css.map": "/full-stack-open/part2/build/static/css/main.ecab7148.chunk.css.map",
+    "static/js/2.47916d12.chunk.js.LICENSE.txt": "/full-stack-open/part2/build/static/js/2.47916d12.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/full-stack-open/part2/build/static/media/bg.c37b01f4.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.4234e0d5.js",
+    "static/js/runtime-main.e09f5b12.js",
     "static/js/2.47916d12.chunk.js",
-    "static/css/main.fd917220.chunk.css",
+    "static/css/main.ecab7148.chunk.css",
     "static/js/main.df6ee75c.chunk.js"
   ]
 }
