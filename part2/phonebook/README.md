@@ -12,6 +12,6 @@ Added feature to prevent adding duplicate names. Used the alert command to issue
 
 Added feature to let users add phone numbers, as well as filter by name. I also refactored the app to be more in components.
 
-#### Build
+#### 2.11
 
-Hosted a static build on github pages for fun.
+Added JSON-server and axios to project, created db.json. Made it so you can add and delete contacts in addition to just getting them from the server on load.

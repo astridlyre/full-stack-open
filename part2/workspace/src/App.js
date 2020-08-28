@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "./components/Form";
 import Notes from "./components/Notes";
+import axios from "axios";
 
-const App = (props) => {
-  const [notes, setNotes] = useState(props.notes);
+// axios.get("http://localhost:3001/notes").then((response) => {
+//   const notes = response.data;
+//   console.log(notes);
+// });
+
+const App = () => {
+  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [isImportant, setImportant] = useState(false);
   const [showAll, setShowAll] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/notes")
+      .then((response) => {
+        setNotes(response.data);
+      })
+      .catch((error) => alert(error.message));
+  }, []);
 
   const notesToShow = showAll
     ? notes
@@ -20,8 +35,10 @@ const App = (props) => {
       important: isImportant,
       id: notes.length + 1,
     };
-
-    setNotes(notes.concat(noteObject));
+    axios
+      .post("http://localhost:3001/notes", noteObject)
+      .catch((error) => console.log(error));
+    // setNotes(notes.concat(noteObject));
     setNewNote("");
   };
 
