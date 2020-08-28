@@ -50,7 +50,7 @@ const CountryFull = ({ country, goBack, currentWeather }) => (
       </div>
       <div className='flex flex-col'>
         <span className='font-semibold'>Wind</span>
-        <span>{currentWeather?.current?.wind_speed} mph</span>
+        <span>{currentWeather?.current?.wind_speed} km/h</span>
       </div>
       <div className='flex flex-col'>
         <span className='font-semibold'>Wind direction</span>
