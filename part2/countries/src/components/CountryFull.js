@@ -16,7 +16,7 @@ const CountryFull = ({ country, goBack, currentWeather }) => (
       </li>
       <li className='grid grid-cols-2 gap-4'>
         <span className='font-semibold mb-2'>Land area:</span>
-        <span>{country?.area}</span>
+        <span>{country?.area} km²</span>
       </li>
       {country?.currencies[0].name && (
         <li className='grid grid-cols-2 gap-4'>
