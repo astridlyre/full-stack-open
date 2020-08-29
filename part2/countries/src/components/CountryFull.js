@@ -2,10 +2,10 @@ import React from "react";
 import Button from "./Button";
 
 const CountryFull = ({ country, goBack, currentWeather }) => (
-  <div className='flex flex-col sm:col-span-2 sm:grid sm:grid-cols-2 sm:gap-8'>
-    <h2 className='sm:col-span-2'>{country?.name}</h2>
+  <div className='col-span-2 grid grid-cols-2 gap-8'>
+    <h2 className='col-span-2'>{country?.name}</h2>
 
-    <ul className='flex flex-col h-full justify-start text-indigo-900'>
+    <ul className='col-span-2 sm:col-span-1 flex flex-col h-full justify-start text-indigo-900'>
       <li className='grid grid-cols-2 gap-4'>
         <span className='font-semibold mb-2'>Capital:</span>
         <span>{country?.capital}</span>
@@ -37,8 +37,8 @@ const CountryFull = ({ country, goBack, currentWeather }) => (
         </li>
       )}
     </ul>
-    <img src={country?.flag} alt='Flag' />
-    <div className='text-indigo-900 grid grid-cols-2 gap-4'>
+    <img src={country?.flag} alt='Flag' className='col-span-2 sm:col-span-1' />
+    <div className='col-span-2 sm:col-span-1 text-indigo-900 grid grid-cols-2 gap-4'>
       <h2 className='col-span-2'>Weather in {country?.capital}:</h2>
       <div className='flex flex-col'>
         <span className='font-semibold'>Temperature</span>

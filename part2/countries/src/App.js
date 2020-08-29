@@ -83,7 +83,7 @@ const App = () => {
 
   return (
     <div className='w-full min-h-screen flex flex-col items-center'>
-      <main className='mt-8 p-8 rounded-lg bg-gray-100 bg-opacity-75 sm:max-w-screen-md w-full flex flex-col sm:grid sm:grid-cols-2 sm:gap-8'>
+      <main className='mt-8 p-8 rounded-lg bg-gray-100 bg-opacity-75 sm:max-w-screen-md w-full grid grid-cols-2 gap-8'>
         <Search
           searchValue={searchValue}
           handleSearchInput={handleSearchInput}
