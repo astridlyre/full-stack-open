@@ -4,7 +4,7 @@ import CountriesList from "./components/CountriesList";
 import CountryFull from "./components/CountryFull";
 import axios from "axios";
 
-const App = ({ apiKey }) => {
+const App = () => {
   const [searchValue, setSearchValue] = useState("");
   const [countries, setCountries] = useState([]);
   const [countriesToShow, setCountriesToShow] = useState([]);
