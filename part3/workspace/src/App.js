@@ -39,7 +39,7 @@ const App = () => {
   const deleteNote = (id) => {
     noteService
       .deleteNote(id)
-      .then(setNotes(notes.map((note) => note.id !== id)))
+      .then(setNotes(notes.filter((note) => note.id !== id)))
       .catch((error) => alert(error.message));
   };
 

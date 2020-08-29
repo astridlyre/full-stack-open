@@ -2,7 +2,7 @@ import React from "react";
 import Button from "./Button";
 
 const CountryFull = ({ country, goBack, currentWeather }) => (
-  <div className='flex items-center justify-between col-span-2 grid grid-cols-2 gap-8'>
+  <div className='col-span-2 grid grid-cols-2 gap-8'>
     <h2 className='col-span-2'>{country?.name}</h2>
 
     <ul className='flex flex-col h-full justify-start text-indigo-900'>

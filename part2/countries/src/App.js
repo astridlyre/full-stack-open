@@ -54,9 +54,7 @@ const App = ({ apiKey }) => {
     setCurrentCountryState(country);
     if (country !== null) {
       axios
-        .get(
-          `http://api.weatherstack.com/current?access_key=${apiKey}&query=${country.capital}`
-        )
+        .get(`/weather/${country.capital}`)
         .then((response) => setCurrentWeather(response.data))
         .catch((error) => alert(error.message));
     }
@@ -78,7 +76,7 @@ const App = ({ apiKey }) => {
   );
   useEffect(() => {
     axios
-      .get(`https://restcountries.eu/rest/v2/all`)
+      .get(`/countries`)
       .then((response) => setCountries(response.data))
       .catch((error) => alert(error.message));
   }, []);
