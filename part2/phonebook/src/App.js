@@ -31,9 +31,7 @@ const App = ({ siteInfo }) => {
     ) {
       numberService
         .deleteNumber(id)
-        .then((deleted) =>
-          setPersons(persons.map((person) => person.id !== deleted.id))
-        )
+        .then(() => setPersons(persons.filter((p) => p.id !== id)))
         .catch((error) => alert(error.message));
     } else {
       return;
