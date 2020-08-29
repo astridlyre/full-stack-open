@@ -65,7 +65,7 @@ const CountryFull = ({ country, goBack, currentWeather }) => (
       />
     </div>
     <div className='col-span-2 flex justify-end'>
-      <Button text='Go Back' look='btn col-span-1 w-1/4' func={goBack} />
+      <Button text='Go Back' look='btn sm:w-1/2 w-full' func={goBack} />
     </div>
   </div>
 );
