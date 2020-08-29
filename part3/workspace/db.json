@@ -1,0 +1,22 @@
+{
+  "notes": [
+    {
+      "content": "My Kitten is the more important!",
+      "date": "2020-08-29T02:40:56.912Z",
+      "important": true,
+      "id": 1598668856912
+    },
+    {
+      "content": "We love and stand a kippum queen",
+      "date": "2020-08-29T02:41:10.381Z",
+      "important": true,
+      "id": 1598668870381
+    },
+    {
+      "content": "Learning to code is fun.",
+      "date": "2020-08-29T02:41:25.051Z",
+      "important": false,
+      "id": 1598668885051
+    }
+  ]
+}
