@@ -51,6 +51,16 @@ const App = () => {
       .catch((error) => alert(error.message));
   };
 
+  const setImportantServer = (note, value) => {
+    axios
+      .put(`http://localhost:3001/notes/${note.id}`, {
+        ...note,
+        important: value,
+      })
+      .then(() => refreshNotes())
+      .catch((error) => alert(error.message));
+  };
+
   const handleNoteChange = (event) => {
     setNewNote(event.target.value);
   };
@@ -61,7 +71,12 @@ const App = () => {
 
   return (
     <main>
-      <Notes title='Notes' notesToShow={notesToShow} deleteNote={deleteNote} />
+      <Notes
+        title='Notes'
+        notesToShow={notesToShow}
+        deleteNote={deleteNote}
+        setImportantServer={setImportantServer}
+      />
       <Form
         showAll={showAll}
         setShowAll={setShowAll}

@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 
-const Note = ({ note, deleteNote }) => {
+const Note = ({ note, deleteNote, setImportantServer }) => {
   const formattedDate = () => {
     return note.date.split("T")[0];
   };
@@ -14,7 +14,14 @@ const Note = ({ note, deleteNote }) => {
       )}
       <div className='flex-row-between'>
         <span className='date'>{formattedDate()}</span>
-        <Button text='Delete' func={() => deleteNote(note.id)} look='red' />
+        <div>
+          <Button
+            text={note.important ? "Not important" : "Important"}
+            look='yellow'
+            func={() => setImportantServer(note, !note.important)}
+          />
+          <Button text='Delete' func={() => deleteNote(note.id)} look='red' />
+        </div>
       </div>
     </li>
   );
