@@ -15,3 +15,7 @@ Added feature to let users add phone numbers, as well as filter by name. I also 
 #### 2.11
 
 Added JSON-server and axios to project, created db.json. Made it so you can add and delete contacts in addition to just getting them from the server on load.
+
+#### 2.15 - 2:17
+
+Phone numbers can be saved on backend. The backend services are extracted to their own component in the Services folder. Users can delete entries, after confirming their action with window.confirm method.

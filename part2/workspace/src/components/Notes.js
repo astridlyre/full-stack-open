@@ -1,7 +1,7 @@
 import React from "react";
 import Note from "./Note";
 
-const Notes = ({ notesToShow, title, deleteNote, setImportantServer }) => (
+const Notes = ({ notesToShow, title, deleteNote, toggleImportant }) => (
   <section>
     <h1>{title}</h1>
     <ul className='part'>
@@ -10,7 +10,7 @@ const Notes = ({ notesToShow, title, deleteNote, setImportantServer }) => (
           key={note.id}
           note={note}
           deleteNote={deleteNote}
-          setImportantServer={setImportantServer}
+          toggleImportant={toggleImportant}
         />
       ))}
     </ul>

@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Contacts from "./components/Contacts";
 import Filter from "./components/Filter";
-import axios from "axios";
+import numberService from "./services/numbers";
 
 const App = ({ siteInfo }) => {
   const [persons, setPersons] = useState([]);
@@ -14,19 +14,30 @@ const App = ({ siteInfo }) => {
   const [filterInput, setFilterInput] = useState("");
 
   const refreshContacts = () => {
-    axios
-      .get("http://localhost:3001/numbers")
-      .then((response) => setPersons(response.data))
+    numberService
+      .getAll()
+      .then((initialContacts) => setPersons(initialContacts))
       .catch((error) => alert(error.message));
   };
 
   useEffect(refreshContacts, []);
 
   const deleteContact = (id) => {
-    axios
-      .delete(`http://localhost:3001/numbers/${id}`)
-      .then(refreshContacts())
-      .catch((error) => alert(error.message));
+    let contactToDelete = persons.find((person) => person.id === id);
+    if (
+      window.confirm(
+        `Do you really want to delete ${contactToDelete.name} from your phonebook?`
+      )
+    ) {
+      numberService
+        .deleteNumber(id)
+        .then((deleted) =>
+          setPersons(persons.map((person) => person.id !== deleted.id))
+        )
+        .catch((error) => alert(error.message));
+    } else {
+      return;
+    }
   };
 
   const addNewName = (event) => {
@@ -40,11 +51,11 @@ const App = ({ siteInfo }) => {
     const newContact = {
       name: formName,
       number: formNumber,
-      id: persons.length + 1,
+      id: new Date().getTime(),
     };
-    axios
-      .post("http://localhost:3001/numbers", newContact)
-      .then(refreshContacts())
+    numberService
+      .createNumber(newContact)
+      .then((newNumber) => setPersons([newNumber].concat(persons)))
       .catch((error) => alert(error.message));
     setFormName("");
     setFormNumber("");

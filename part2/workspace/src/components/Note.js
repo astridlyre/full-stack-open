@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 
-const Note = ({ note, deleteNote, setImportantServer }) => {
+const Note = ({ note, deleteNote, toggleImportant }) => {
   const formattedDate = () => {
     return note.date.split("T")[0];
   };
@@ -18,7 +18,7 @@ const Note = ({ note, deleteNote, setImportantServer }) => {
           <Button
             text={note.important ? "Not important" : "Important"}
             look='yellow'
-            func={() => setImportantServer(note, !note.important)}
+            func={() => toggleImportant(note)}
           />
           <Button text='Delete' func={() => deleteNote(note.id)} look='red' />
         </div>
