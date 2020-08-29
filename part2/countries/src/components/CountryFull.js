@@ -2,8 +2,8 @@ import React from "react";
 import Button from "./Button";
 
 const CountryFull = ({ country, goBack, currentWeather }) => (
-  <div className='col-span-2 grid grid-cols-2 gap-8'>
-    <h2 className='col-span-2'>{country?.name}</h2>
+  <div className='flex flex-col sm:col-span-2 sm:grid sm:grid-cols-2 sm:gap-8'>
+    <h2 className='sm:col-span-2'>{country?.name}</h2>
 
     <ul className='flex flex-col h-full justify-start text-indigo-900'>
       <li className='grid grid-cols-2 gap-4'>
