@@ -40,12 +40,36 @@ const App = ({ siteInfo }) => {
     }
   };
 
+  const updateContact = (contactToUpdate, newNumber) => {
+    numberService
+      .updateNumber(contactToUpdate.id, {
+        ...contactToUpdate,
+        number: newNumber,
+      })
+      .then((updatedPerson) => {
+        setPersons(
+          persons.map((p) => (p.id !== updatedPerson.id ? p : updatedPerson))
+        );
+        setFormName("");
+        setFormNumber("");
+      })
+      .catch((error) => alert(error.message));
+  };
+
   const addNewName = (event) => {
     event.preventDefault();
     for (let i = 0; i < persons.length; i++) {
-      if (persons[i].name === formName) {
-        alert(`${formName} is already added to The Phonebook!`);
-        return;
+      if (persons[i].name.toLowerCase() === formName.toLowerCase()) {
+        if (
+          window.confirm(
+            `${persons[i].name} already exists! Would you like to update their number instead?`
+          )
+        ) {
+          updateContact(persons[i], formNumber);
+          return;
+        } else {
+          return;
+        }
       }
     }
     const newContact = {
