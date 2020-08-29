@@ -35,10 +35,11 @@ const App = () => {
       content: newNote,
       date: new Date().toISOString(),
       important: isImportant,
-      id: notes.length + 1,
+      id: new Date().getTime(),
     };
     axios
       .post("http://localhost:3001/notes", noteObject)
+      .then((response) => setNotes([response.data].concat(notes)))
       .catch((error) => console.log(error));
     // setNotes(notes.concat(noteObject));
     setNewNote("");
@@ -47,7 +48,9 @@ const App = () => {
   const deleteNote = (id) => {
     axios
       .delete(`http://localhost:3001/notes/${id}`)
-      .then(() => refreshNotes())
+      .then((response) => {
+        setNotes(notes.map((n) => n.id !== id));
+      })
       .catch((error) => alert(error.message));
   };
 
@@ -57,7 +60,9 @@ const App = () => {
         ...note,
         important: value,
       })
-      .then(() => refreshNotes())
+      .then((response) => {
+        setNotes(notes.map((n) => (n.id !== note.id ? n : response.data)));
+      })
       .catch((error) => alert(error.message));
   };
 
