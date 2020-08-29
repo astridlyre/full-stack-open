@@ -23,3 +23,7 @@ Phone numbers can be saved on backend. The backend services are extracted to the
 #### 2.18
 
 Added funcionality to allow user to update phone number if they try to add one who's name is already in the phonebook.
+
+#### 2.19 - 2.20
+
+Created a notification component to notify user of any actions or errors.

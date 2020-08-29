@@ -6,12 +6,14 @@ import Footer from "./components/Footer";
 import Contacts from "./components/Contacts";
 import Filter from "./components/Filter";
 import numberService from "./services/numbers";
+import Notification from "./components/Notification";
 
 const App = ({ siteInfo }) => {
   const [persons, setPersons] = useState([]);
   const [formName, setFormName] = useState("");
   const [formNumber, setFormNumber] = useState("");
   const [filterInput, setFilterInput] = useState("");
+  const [notification, setNotification] = useState(null);
 
   const refreshContacts = () => {
     numberService
@@ -22,6 +24,13 @@ const App = ({ siteInfo }) => {
 
   useEffect(refreshContacts, []);
 
+  const showNotification = (obj) => {
+    setNotification(obj);
+    setTimeout(() => {
+      setNotification(null);
+    }, 2000);
+  };
+
   const deleteContact = (id) => {
     let contactToDelete = persons.find((person) => person.id === id);
     if (
@@ -31,8 +40,20 @@ const App = ({ siteInfo }) => {
     ) {
       numberService
         .deleteNumber(id)
-        .then(() => setPersons(persons.filter((p) => p.id !== id)))
-        .catch((error) => alert(error.message));
+        .then(() => {
+          setPersons(persons.filter((p) => p.id !== id));
+          showNotification({
+            text: `Deleted ${contactToDelete.name} from the phonebook`,
+            look: "red",
+          });
+        })
+        .catch((error) => {
+          showNotification({
+            text: `${contactToDelete.name} has already been deleted`,
+            look: "red",
+          });
+          refreshContacts();
+        });
     } else {
       return;
     }
@@ -48,10 +69,20 @@ const App = ({ siteInfo }) => {
         setPersons(
           persons.map((p) => (p.id !== updatedPerson.id ? p : updatedPerson))
         );
+        showNotification({
+          text: `Updated ${updatedPerson.name}'s number in the phonebook`,
+          look: "green",
+        });
         setFormName("");
         setFormNumber("");
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        showNotification({
+          text: `${error.message} - Contact has been deleted`,
+          look: "red",
+        });
+        refreshContacts();
+      });
   };
 
   const addNewName = (event) => {
@@ -77,8 +108,17 @@ const App = ({ siteInfo }) => {
     };
     numberService
       .createNumber(newContact)
-      .then((newNumber) => setPersons([newNumber].concat(persons)))
-      .catch((error) => alert(error.message));
+      .then((newNumber) => {
+        setPersons([newNumber].concat(persons));
+        showNotification({
+          text: `Added ${newContact.name} to the phonebook`,
+          look: "green",
+        });
+      })
+      .catch((error) => {
+        showNotification({ text: error.message, look: "red" });
+        refreshContacts();
+      });
     setFormName("");
     setFormNumber("");
   };
@@ -113,6 +153,9 @@ const App = ({ siteInfo }) => {
           handleNumberStateChange={handleNumberStateChange}
           addNewName={addNewName}
         />
+        {notification !== null && (
+          <Notification text={notification.text} look={notification.look} />
+        )}
         <Contacts persons={personsToShow} deleteContact={deleteContact} />
         <Footer siteInfo={siteInfo} />
       </div>
