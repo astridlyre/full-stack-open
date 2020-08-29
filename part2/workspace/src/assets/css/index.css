@@ -267,9 +267,26 @@ code {
   transition: var(--trans-ease);
 }
 
+.red {
+  background-color: var(--red);
+  transition: var(--trans-ease);
+}
+
+.red:hover {
+  background-color: var(--d-accent);
+  transition: var(--trans-ease);
+}
+
+.flex-row-between {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
 button {
   border: none;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   color: var(--light-color);
   font-weight: bold;

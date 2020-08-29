@@ -14,14 +14,16 @@ const App = () => {
   const [isImportant, setImportant] = useState(false);
   const [showAll, setShowAll] = useState(true);
 
-  useEffect(() => {
+  const refreshNotes = () => {
     axios
       .get("http://localhost:3001/notes")
       .then((response) => {
         setNotes(response.data);
       })
       .catch((error) => alert(error.message));
-  }, []);
+  };
+
+  useEffect(refreshNotes, []);
 
   const notesToShow = showAll
     ? notes
@@ -42,6 +44,13 @@ const App = () => {
     setNewNote("");
   };
 
+  const deleteNote = (id) => {
+    axios
+      .delete(`http://localhost:3001/notes/${id}`)
+      .then(() => refreshNotes())
+      .catch((error) => alert(error.message));
+  };
+
   const handleNoteChange = (event) => {
     setNewNote(event.target.value);
   };
@@ -52,7 +61,7 @@ const App = () => {
 
   return (
     <main>
-      <Notes title='Notes' notesToShow={notesToShow} />
+      <Notes title='Notes' notesToShow={notesToShow} deleteNote={deleteNote} />
       <Form
         showAll={showAll}
         setShowAll={setShowAll}
