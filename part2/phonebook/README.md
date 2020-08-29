@@ -19,3 +19,7 @@ Added JSON-server and axios to project, created db.json. Made it so you can add 
 #### 2.15 - 2:17
 
 Phone numbers can be saved on backend. The backend services are extracted to their own component in the Services folder. Users can delete entries, after confirming their action with window.confirm method.
+
+#### 2.18
+
+Added funcionality to allow user to update phone number if they try to add one who's name is already in the phonebook.
