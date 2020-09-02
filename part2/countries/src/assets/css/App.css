@@ -1037,10 +1037,6 @@ a:hover {
   color: rgba(60, 54, 107, var(--text-opacity));
 }
 
-.w-1\/4 {
-  width: 25%;
-}
-
 .w-full {
   width: 100%;
 }
@@ -1057,10 +1053,6 @@ a:hover {
 
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.col-span-1 {
-  grid-column: span 1 / span 1;
 }
 
 .col-span-2 {

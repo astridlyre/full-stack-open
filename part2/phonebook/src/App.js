@@ -15,21 +15,21 @@ const App = ({ siteInfo }) => {
   const [filterInput, setFilterInput] = useState("");
   const [notification, setNotification] = useState(null);
 
-  const refreshContacts = () => {
-    numberService
-      .getAll()
-      .then((initialContacts) => setPersons(initialContacts))
-      .catch((error) => alert(error.message));
-  };
-
-  useEffect(refreshContacts, []);
-
   const showNotification = (obj) => {
     setNotification(obj);
     setTimeout(() => {
       setNotification(null);
     }, 2000);
   };
+
+  const refreshContacts = () => {
+    numberService
+      .getAll()
+      .then((initialContacts) => setPersons(initialContacts))
+      .catch((error) => showNotification({ text: error.message, look: "red" }));
+  };
+
+  useEffect(refreshContacts, []);
 
   const deleteContact = (id) => {
     let contactToDelete = persons.find((person) => person.id === id);
@@ -40,16 +40,17 @@ const App = ({ siteInfo }) => {
     ) {
       numberService
         .deleteNumber(id)
-        .then(() => {
-          setPersons(persons.filter((p) => p.id !== id));
+        .then((deletedPerson) => {
+          setPersons(persons.filter((p) => p.id !== deletedPerson.id));
           showNotification({
-            text: `Deleted ${contactToDelete.name} from the phonebook`,
+            text: `Deleted ${deletedPerson.name} from the phonebook`,
             look: "red",
           });
         })
         .catch((error) => {
           showNotification({
-            text: `${contactToDelete.name} has already been deleted`,
+            text: `${error.message}
+            ${contactToDelete.name} has already been deleted`,
             look: "red",
           });
           refreshContacts();
@@ -104,7 +105,6 @@ const App = ({ siteInfo }) => {
     const newContact = {
       name: formName,
       number: formNumber,
-      id: new Date().getTime(),
     };
     numberService
       .createNumber(newContact)
@@ -116,7 +116,10 @@ const App = ({ siteInfo }) => {
         });
       })
       .catch((error) => {
-        showNotification({ text: error.message, look: "red" });
+        showNotification({
+          text: `${error.message} Ensure both fields meet min length requirements! (3,8)`,
+          look: "red",
+        });
         refreshContacts();
       });
     setFormName("");
