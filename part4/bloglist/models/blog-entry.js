@@ -21,6 +21,16 @@ const blogEntrySchema = new mongoose.Schema({
     required: true,
     default: 0,
   },
+  createdOn: {
+    type: Date,
+    required: true,
+    default: new Date(),
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 })
 
 blogEntrySchema.set('toJSON', {
