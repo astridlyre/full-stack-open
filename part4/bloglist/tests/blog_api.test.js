@@ -15,28 +15,30 @@ beforeEach(async () => {
   }
 })
 
-test(`blogs are returned as json`, async () => {
-  console.log('entered test')
+test(`all blogs are returned, content type is json`, async () => {
   await api
     .get('/api/blogs')
     .expect(200)
     .expect('Content-Type', /application\/json/)
+
+  const allBlogs = await helper.blogsInDb()
+
+  expect(allBlogs).toHaveLength(helper.initialBlogEntries.length)
 })
 
-test('all blog posts are returned', async () => {
-  const response = await api.get('/api/blogs')
+test('unique identifier is called id, and each blog has an id', async () => {
+  const allBlogs = await helper.blogsInDb()
 
-  expect(response.body).toHaveLength(helper.initialBlogEntries.length)
+  const blogToTest = allBlogs[0]
+
+  expect(blogToTest.id).toBeDefined()
+
+  const ids = allBlogs.map(b => b.id)
+
+  ids.forEach(id => expect(id).toBeDefined())
 })
 
-test('a specific author is within the returned blogs', async () => {
-  const response = await api.get('/api/blogs')
-  const contents = response.body.map(r => r.author)
-
-  expect(contents).toContain('Daniel')
-})
-
-test('a valid blog can be added', async () => {
+test('a valid blog can be created and it is stored properly', async () => {
   const newBlogEntry = {
     title: 'I love cows',
     author: 'Harold',
@@ -57,11 +59,26 @@ test('a valid blog can be added', async () => {
   expect(titles).toContain('I love cows')
 })
 
-test('blog entry without title is not added', async () => {
+test('blog entry without likes is added with default value of 0 and total number of blogs increases', async () => {
+  const newBlogEntry = {
+    title: 'Wes',
+    author: 'Anderson',
+    url: 'http://www.wesanderson.com/blog',
+  }
+
+  const response = await api.post('/api/blogs').send(newBlogEntry)
+
+  expect(response.status).toBe(201)
+  expect(response.body.likes).toBe(0)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  expect(blogsAtEnd).toHaveLength(helper.initialBlogEntries.length + 1)
+})
+
+test('blog entry without title and url cannot be added and response is 400', async () => {
   const newBlogEntry = {
     author: 'Anderson',
-    likes: 398878,
-    url: 'http://www.wes.ca',
+    likes: 9809890189011,
   }
 
   await api.post('/api/blogs').send(newBlogEntry).expect(400)
