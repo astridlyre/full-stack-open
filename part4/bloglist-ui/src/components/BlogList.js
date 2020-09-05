@@ -6,7 +6,6 @@ import { ReactComponent as DownIcon } from '../assets/img/down.svg'
 const BlogList = ({
   sendNewEntry,
   blogEntries,
-  likeEntry,
   setShowLiked,
   showLiked,
   currentUser,
@@ -86,7 +85,6 @@ const BlogList = ({
             likes={entry.likes}
             createdOn={entry.createdOn}
             url={entry.url}
-            likeEntry={() => likeEntry(entry.id)}
             currentUser={currentUser}
             sendDeleteEntry={() => sendDeleteEntry(entry.id)}
             sendNewLike={() => sendNewLike(entry)}

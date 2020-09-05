@@ -15,7 +15,7 @@ const CreateModal = ({
   return (
     <form
       onSubmit={createBlogEntry}
-      className='flex flex-col items-center justify-start w-full bg-l-accent text-dark'>
+      className='flex flex-col items-center justify-start w-full bg-l-accent text-dark createmodal'>
       <div className='sm:p-16 p-4 w-full'>
         <h3 className='mb-8 text-2xl font-semibold'>submit a new entry</h3>
         <label htmlFor='title' className='flex flex-col w-full'>
@@ -23,7 +23,7 @@ const CreateModal = ({
           <input
             type='text'
             name='title'
-            className='form-input'
+            className='form-input titleinput'
             value={titleInput}
             onChange={({ target }) => setTitleInput(target.value)}
             required

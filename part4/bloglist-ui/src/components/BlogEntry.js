@@ -17,7 +17,7 @@ const BlogEntry = ({
   const [showDelete, setShowDelete] = useState(false)
 
   return (
-    <li className='mb-8 flex flex-col items-start'>
+    <li className='blogentry mb-8 flex flex-col items-start'>
       <div className='flex items-center justify-between w-full'>
         <a
           href={url}
@@ -37,7 +37,7 @@ const BlogEntry = ({
             <button
               type='button'
               onClick={() => setShowDelete(!showDelete)}
-              className='p-2 text-dark rounded hover:bg-dark hover:text-light focus:outline-none'>
+              className='p-2 showdelete-btn text-dark rounded hover:bg-dark hover:text-light focus:outline-none'>
               <MoreIcon />
             </button>
             {showDelete && (
@@ -45,7 +45,7 @@ const BlogEntry = ({
                 <button
                   type='button'
                   onClick={sendDeleteEntry}
-                  className='relative p-2 text-dark rounded bg-l-accent hover:bg-dark hover:text-light focus:outline-none'>
+                  className='delete-btn relative p-2 text-dark rounded bg-l-accent hover:bg-dark hover:text-light focus:outline-none'>
                   <DeleteIcon />
                 </button>
               </div>

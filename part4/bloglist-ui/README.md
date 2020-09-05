@@ -12,4 +12,10 @@ Form for creating blog entries is only displayed when appropriate. It closes whe
 
 Defined PropTypes for NotificationModal component. Added ESlint to project. Defined the config according to suggestions.
 
+#### 5.13 - 5.16
+
+Because I made the toggle for the delete button instead of blog information, I tested that instead. Implemented a test to check that the delete button is not rendered by default. Checked that the actions button is shown only when the blog entry was posted by the current user, and that the delete button shows only once you press the actions button. Checked that if you press the like button twice, it registers two like actions.
+
+Also made a test for the create modal form, to check that the event handler is called when the title input changes, and it sends the correct value.
+
 Live version: [https://linkr-list.herokuapp.com/](https://linkr-list.herokuapp.com/)
