@@ -9,7 +9,7 @@ import {
   deleteBlogEntry,
   postNewUser,
   putNewLike,
-} from './services/blogentries'
+} from './services/services'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null)

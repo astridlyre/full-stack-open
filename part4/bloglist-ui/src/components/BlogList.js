@@ -18,10 +18,6 @@ const BlogList = ({
   const [urlInput, setUrlInput] = useState('')
   const [showCreateModal, setShowCreateModal] = useState(false)
 
-  const handleTitleInput = event => setTitleInput(event.target.value)
-  const handleAuthorInput = event => setAuthorInput(event.target.value)
-  const handleUrlInput = event => setUrlInput(event.target.value)
-
   const createBlogEntry = event => {
     event.preventDefault()
     const newEntry = {
