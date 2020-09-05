@@ -64,14 +64,10 @@ const App = () => {
   }
 
   const sendDeleteEntry = async idToDelete => {
-    const response = await deleteBlogEntry(
-      idToDelete,
-      currentUser.id,
-      currentUser.token
-    )
+    await deleteBlogEntry(idToDelete, currentUser.id, currentUser.token)
     setBlogEntries(blogEntries.filter(entry => entry.id !== idToDelete))
     showNotification({
-      text: `deleted entry: ${response.title}`,
+      text: `deleted entry`,
       look: 'red',
     })
   }
@@ -81,7 +77,7 @@ const App = () => {
     setCurrentUser(user)
     localStorage.setItem('user', JSON.stringify(user))
     showNotification({
-      text: `login successful - hi, ${currentUser.name}!`,
+      text: `login successful - hi, ${user.name}!`,
       look: 'green',
     })
   }

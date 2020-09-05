@@ -36,7 +36,7 @@ const BlogList = ({
     'font-sm font-semibold text-dark hover:bg-dark hover:text-light px-2 focus:outline-none border-b-4 border-light'
 
   return (
-    <section className='flex flex-col justify-start items-center text-dark font-display sm:rounded'>
+    <section className='flex flex-col justify-start items-center text-dark font-display sm:rounded px-2 sm:px-0'>
       {showCreateModal ? (
         <CreateModal
           createBlogEntry={createBlogEntry}
