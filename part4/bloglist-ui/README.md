@@ -11,3 +11,5 @@ Form for creating blog entries is only displayed when appropriate. It closes whe
 #### 5.11 - 5.12
 
 Defined PropTypes for NotificationModal component. Added ESlint to project. Defined the config according to suggestions.
+
+Live version: [https://linkr-list.herokuapp.com/](https://linkr-list.herokuapp.com/)
