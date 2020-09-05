@@ -11,7 +11,6 @@ const BlogEntry = ({
   user,
   currentUser,
   createdOn,
-  likeEntry,
   sendDeleteEntry,
   sendNewLike,
 }) => {

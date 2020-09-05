@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const NotificationModal = ({ look = '', text = '' }) => {
   const classes =
@@ -12,6 +13,11 @@ const NotificationModal = ({ look = '', text = '' }) => {
       </span>
     </div>
   )
+}
+
+NotificationModal.propTypes = {
+  look: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 }
 
 export default NotificationModal

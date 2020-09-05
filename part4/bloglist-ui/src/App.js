@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Login from './Login'
@@ -27,21 +28,28 @@ const App = () => {
 
   const sendNewEntry = async newEntry => {
     const payload = { ...newEntry, userId: currentUser.id }
-    const response = await postNewBlog(payload, currentUser.token)
-    setBlogEntries(
-      blogEntries.concat({
-        ...response,
-        user: {
-          name: currentUser.name,
-          id: currentUser.id,
-          username: currentUser.username,
-        },
+    try {
+      const response = await postNewBlog(payload, currentUser.token)
+      setBlogEntries(
+        blogEntries.concat({
+          ...response,
+          user: {
+            name: currentUser.name,
+            id: currentUser.id,
+            username: currentUser.username,
+          },
+        })
+      )
+      showNotification({
+        text: `submitted new entry: ${newEntry.title}`,
+        look: 'green',
       })
-    )
-    showNotification({
-      text: `submitted new entry: ${newEntry.title}`,
-      look: 'green',
-    })
+    } catch (e) {
+      showNotification({
+        text: `failed to submit: ${e.message}!`,
+        look: 'red',
+      })
+    }
   }
 
   const sendNewLike = async entryToChange => {
@@ -50,36 +58,63 @@ const App = () => {
       id: entryToChange.user.id,
       name: entryToChange.user.name,
     }
+    try {
+      const response = await putNewLike({
+        ...entryToChange,
+        user: entryToChange.user.id,
+      })
 
-    const response = await putNewLike({
-      ...entryToChange,
-      user: entryToChange.user.id,
-    })
-
-    setBlogEntries(
-      blogEntries.map(entry =>
-        entry.id !== entryToChange.id ? entry : { ...response, user: userInfo }
+      setBlogEntries(
+        blogEntries.map(entry =>
+          entry.id !== entryToChange.id
+            ? entry
+            : { ...response, user: userInfo }
+        )
       )
-    )
+    } catch (e) {
+      showNotification({
+        text: `action failed: ${e.message}!`,
+        look: 'red',
+      })
+    }
   }
 
   const sendDeleteEntry = async idToDelete => {
-    await deleteBlogEntry(idToDelete, currentUser.id, currentUser.token)
-    setBlogEntries(blogEntries.filter(entry => entry.id !== idToDelete))
-    showNotification({
-      text: `deleted entry`,
-      look: 'red',
-    })
+    try {
+      await deleteBlogEntry(idToDelete, currentUser.id, currentUser.token)
+      setBlogEntries(blogEntries.filter(entry => entry.id !== idToDelete))
+      showNotification({
+        text: 'deleted entry',
+        look: 'red',
+      })
+    } catch (e) {
+      showNotification({
+        text: `action failed: ${e.message}!`,
+        look: 'red',
+      })
+    }
   }
 
   const setLogin = async (username, password) => {
-    const user = await getLogin(username, password)
-    setCurrentUser(user)
-    localStorage.setItem('user', JSON.stringify(user))
-    showNotification({
-      text: `login successful - hi, ${user.name}!`,
-      look: 'green',
-    })
+    try {
+      const user = await getLogin(username, password)
+      setCurrentUser(user)
+      localStorage.setItem('user', JSON.stringify(user))
+      showNotification({
+        text: `login successful - hi, ${user.name}!`,
+        look: 'green',
+      })
+    } catch (e) {
+      e.message.includes('401')
+        ? showNotification({
+            text: 'login failed: username or password incorrect!',
+            look: 'red',
+          })
+        : showNotification({
+            text: `login failed: ${e.message}`,
+            look: 'red',
+          })
+    }
   }
 
   const setSignup = async (username, password, name) => {
@@ -88,15 +123,22 @@ const App = () => {
       password: password,
       name: name,
     }
-    await postNewUser(newUser)
-    setLogin(username, password)
+    try {
+      await postNewUser(newUser)
+      setLogin(username, password)
+    } catch (e) {
+      showNotification({
+        text: `signup failed: ${e.message}!`,
+        look: 'red',
+      })
+    }
   }
 
   const logout = () => {
     localStorage.removeItem('user')
     setCurrentUser(null)
     showNotification({
-      text: `logged out`,
+      text: 'logged out',
       look: 'green',
     })
   }
