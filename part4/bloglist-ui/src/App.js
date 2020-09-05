@@ -15,6 +15,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null)
   const [blogEntries, setBlogEntries] = useState([])
   const [showLiked, setShowLiked] = useState(false)
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     const user = localStorage.getItem('user')
@@ -37,6 +38,10 @@ const App = () => {
         },
       })
     )
+    showNotification({
+      text: `submitted new entry: ${newEntry.title}`,
+      look: 'green',
+    })
   }
 
   const sendNewLike = async entryToChange => {
@@ -59,14 +64,26 @@ const App = () => {
   }
 
   const sendDeleteEntry = async idToDelete => {
-    await deleteBlogEntry(idToDelete, currentUser.id, currentUser.token)
+    const response = await deleteBlogEntry(
+      idToDelete,
+      currentUser.id,
+      currentUser.token
+    )
     setBlogEntries(blogEntries.filter(entry => entry.id !== idToDelete))
+    showNotification({
+      text: `deleted entry: ${response.title}`,
+      look: 'red',
+    })
   }
 
   const setLogin = async (username, password) => {
     const user = await getLogin(username, password)
     setCurrentUser(user)
     localStorage.setItem('user', JSON.stringify(user))
+    showNotification({
+      text: `login successful - hi, ${currentUser.name}!`,
+      look: 'green',
+    })
   }
 
   const setSignup = async (username, password, name) => {
@@ -82,6 +99,17 @@ const App = () => {
   const logout = () => {
     localStorage.removeItem('user')
     setCurrentUser(null)
+    showNotification({
+      text: `logged out`,
+      look: 'green',
+    })
+  }
+
+  const showNotification = toShow => {
+    setNotification(toShow)
+    setTimeout(() => {
+      setNotification(null)
+    }, 1500)
   }
 
   const entriesToShow = showLiked
@@ -93,6 +121,7 @@ const App = () => {
       <div className='max-w-screen-sm w-full'>
         <Header
           logout={logout}
+          notification={notification}
           username={currentUser ? currentUser.name : ''}
         />
         {!currentUser ? (
