@@ -24,6 +24,8 @@ const BlogEntry = ({
       <div className='flex items-center justify-between w-full'>
         <a
           href={url}
+          target='_blank'
+          rel='noopener noreferrer'
           className='border-l-8 border-l-accent px-2 hover:bg-dark text-dark hover:text-light'>
           <h4 className='font-semibold font-display text-3xl'>{title}</h4>
         </a>
