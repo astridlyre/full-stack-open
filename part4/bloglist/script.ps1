@@ -1,5 +1,5 @@
 Remove-Item -r build
-Set-Location ../bloglist-ui
+Set-Location ../full-stack-open/part4/bloglist-ui
 npm run build --prod
-Copy-Item -r build ../bloglist
-Set-Location ../bloglist
+Copy-Item -r build ../../../full-stack-bloglist
+Set-Location ../../../full-stack-bloglist
