@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = '/api'
+const baseUrl = 'http://localhost:3001/api'
 
 const getBlogs = async () => {
   const response = await axios.get(`${baseUrl}/blogs`)
@@ -16,8 +16,12 @@ const postNewBlog = async (payload, token) => {
   return response.data
 }
 
-const putNewLike = async payload => {
-  const response = await axios.put(`${baseUrl}/blogs/${payload.id}`, payload)
+const putNewLike = async (payload, token) => {
+  const response = await axios.put(`${baseUrl}/blogs/${payload.id}`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
   return response.data
 }
 

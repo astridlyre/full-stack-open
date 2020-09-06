@@ -15,6 +15,9 @@ const BlogEntry = ({
   sendNewLike,
 }) => {
   const [showDelete, setShowDelete] = useState(false)
+  const likeBtn = likes.includes(currentUser.id)
+    ? 'like-btn ml-2 p-2 text-dark bg-l-accent rounded hover:bg-dark hover:text-light focus:outline-none'
+    : 'like-btn ml-2 p-2 text-dark rounded hover:bg-dark hover:text-light focus:outline-none'
 
   return (
     <li className='blogentry mb-8 flex flex-col items-start'>
@@ -24,7 +27,7 @@ const BlogEntry = ({
           className='border-l-8 border-l-accent px-2 hover:bg-dark text-dark hover:text-light'>
           <h4 className='font-semibold font-display text-3xl'>{title}</h4>
         </a>
-        {user.id === currentUser.id && (
+        {currentUser && user.id === currentUser.id && (
           <div
             className={
               showDelete ? 'relative bg-l-accent rounded-b' : 'relative'
@@ -59,12 +62,10 @@ const BlogEntry = ({
         </h5>
         <div className='flex items-center'>
           <span className='font-semibold text-dark'>
-            {likes} {likes > 1 ? 'likes' : 'like'}
+            {likes.length || '0'}{' '}
+            {likes.length > 1 || !likes.length ? 'likes' : 'like'}
           </span>
-          <button
-            type='button'
-            onClick={sendNewLike}
-            className='ml-2 p-2 text-dark rounded hover:bg-dark hover:text-light focus:outline-none'>
+          <button type='button' onClick={sendNewLike} className={likeBtn}>
             <LikeIcon />
           </button>
         </div>

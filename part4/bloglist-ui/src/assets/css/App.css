@@ -1192,6 +1192,10 @@ video {
   color: rgba(45, 55, 74, var(--text-opacity));
 }
 
+.visible {
+  visibility: visible;
+}
+
 .w-32 {
   width: 8rem;
 }

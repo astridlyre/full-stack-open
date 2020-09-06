@@ -51,6 +51,7 @@ const BlogList = ({
         <div className='w-full'>
           <button
             type='button'
+            id='createmodal-open'
             className='p-2 flex justify-center font-sm font-semibold text-dark w-full bg-l-accent hover:bg-dark hover:text-light'
             onClick={() => setShowCreateModal(true)}>
             <DownIcon />
@@ -63,6 +64,7 @@ const BlogList = ({
             showLiked ? `${filterStyles}` : `${filterStyles} border-dark`
           }
           type='button'
+          id='filter-recent'
           onClick={() => setShowLiked(false)}>
           most recent
         </button>
@@ -71,6 +73,7 @@ const BlogList = ({
             !showLiked ? `${filterStyles}` : `${filterStyles} border-dark`
           }
           type='button'
+          id='filter-liked'
           onClick={() => setShowLiked(true)}>
           top liked
         </button>

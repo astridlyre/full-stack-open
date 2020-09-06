@@ -19,3 +19,7 @@ Because I made the toggle for the delete button instead of blog information, I t
 Also made a test for the create modal form, to check that the event handler is called when the title input changes, and it sends the correct value.
 
 Live version: [https://linkr-list.herokuapp.com/](https://linkr-list.herokuapp.com/)
+
+#### 5.17 - 5.22
+
+Configured cypress for the project. Made a test to check the login form is displayed. Made tests for logging in, testing both successful and unsuccessful log in attempts. Made a test which checks that a logged in user can create a new entry. Made a test which checks that a user can like a blog entry. Made a test that the user who created the blog can delete it. Made a test which checks that blogs can be filtered by likes and they are in the correct order.

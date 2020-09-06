@@ -27,9 +27,8 @@ const App = () => {
   }, [])
 
   const sendNewEntry = async newEntry => {
-    const payload = { ...newEntry, userId: currentUser.id }
     try {
-      const response = await postNewBlog(payload, currentUser.token)
+      const response = await postNewBlog(newEntry, currentUser.token)
       setBlogEntries(
         blogEntries.concat({
           ...response,
@@ -58,11 +57,9 @@ const App = () => {
       id: entryToChange.user.id,
       name: entryToChange.user.name,
     }
+    console.log(entryToChange)
     try {
-      const response = await putNewLike({
-        ...entryToChange,
-        user: entryToChange.user.id,
-      })
+      const response = await putNewLike(entryToChange, currentUser.token)
 
       setBlogEntries(
         blogEntries.map(entry =>
@@ -127,10 +124,15 @@ const App = () => {
       await postNewUser(newUser)
       setLogin(username, password)
     } catch (e) {
-      showNotification({
-        text: `signup failed: ${e.message}!`,
-        look: 'red',
-      })
+      e.message.includes('400')
+        ? showNotification({
+            text: 'signup failed: username already taken!',
+            look: 'red',
+          })
+        : showNotification({
+            text: `signup failed: ${e.message}!`,
+            look: 'red',
+          })
     }
   }
 
@@ -151,7 +153,7 @@ const App = () => {
   }
 
   const entriesToShow = showLiked
-    ? [...blogEntries].sort((a, b) => b.likes - a.likes)
+    ? [...blogEntries].sort((a, b) => b.likes.length - a.likes.length)
     : [...blogEntries].reverse()
 
   return (

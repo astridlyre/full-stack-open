@@ -31,6 +31,7 @@ const Login = ({ setLogin, setSignup }) => {
             <input
               type='text'
               name='name'
+              id='name'
               className='form-input'
               value={nameInput}
               onChange={handleNameInput}
@@ -43,6 +44,7 @@ const Login = ({ setLogin, setSignup }) => {
           <input
             type='text'
             name='username'
+            id='username'
             className='form-input'
             value={usernameInput}
             onChange={handleUsernameInput}
@@ -54,6 +56,7 @@ const Login = ({ setLogin, setSignup }) => {
           <input
             type='password'
             name='password'
+            id='password'
             className='form-input'
             value={passwordInput}
             onChange={handlePasswordInput}
@@ -62,12 +65,14 @@ const Login = ({ setLogin, setSignup }) => {
         </label>
         <Button
           text={showSignUp ? 'sign up' : 'login'}
+          id={showSignUp ? 'signup' : 'login'}
           look='mt-12 px-6 py-2 font-sm font-semibold text-light w-full bg-dark rounded hover:bg-d-accent'
           type='submit'
         />
         <Button
           text={showSignUp ? 'go back' : 'create an account'}
           look='mt-12 px-6 py-2 font-sm font-semibold text-light w-full rounded hover:bg-light hover:text-dark focus:outline-none'
+          id={showSignUp ? 'goback' : 'createaccount'}
           func={() => setShowSignUp(!showSignUp)}
         />
       </form>
