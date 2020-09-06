@@ -57,7 +57,6 @@ const App = () => {
       id: entryToChange.user.id,
       name: entryToChange.user.name,
     }
-    console.log(entryToChange)
     try {
       const response = await putNewLike(entryToChange, currentUser.token)
 
