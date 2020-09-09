@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Login from './Login'
-import BlogList from './components/BlogList'
+import BlogList from './components/BlogList/BlogList'
 import {
   getBlogs,
   getLogin,
@@ -24,11 +24,11 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 
 const App = () => {
-  const [showLiked, setShowLiked] = useState(false)
   const [notification, setNotification] = useState(null)
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser)
   const entries = useSelector(state => state.entries)
+  const showLiked = useSelector(state => state.showLiked)
 
   // initialize blog entries and set user in state
   useEffect(() => {
@@ -135,8 +135,6 @@ const App = () => {
           <BlogList
             sendNewEntry={sendNewEntry}
             blogEntries={entriesToShow}
-            showLiked={showLiked}
-            setShowLiked={setShowLiked}
             currentUser={currentUser}
             sendDeleteEntry={sendDeleteEntry}
             sendNewLike={sendNewLike}

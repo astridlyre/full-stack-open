@@ -1,23 +1,13 @@
 import React, { useState } from 'react'
-import { ReactComponent as LikeIcon } from '../assets/img/like.svg'
-import { ReactComponent as MoreIcon } from '../assets/img/more.svg'
-import { ReactComponent as DeleteIcon } from '../assets/img/delete.svg'
+import { useSelector } from 'react-redux'
+import DeleteButton from '../Buttons/DeleteButton'
+import MoreButton from '../Buttons/MoreButton'
+import LikeButton from '../Buttons/LikeButton'
 
-const BlogEntry = ({
-  title,
-  author,
-  url,
-  likes,
-  user,
-  currentUser,
-  createdOn,
-  sendDeleteEntry,
-  sendNewLike,
-}) => {
+const BlogEntry = ({ entry, sendDeleteEntry, sendNewLike }) => {
+  const { title, author, url, likes, user, createdOn } = entry
+  const currentUser = useSelector(state => state.currentUser)
   const [showDelete, setShowDelete] = useState(false)
-  const likeBtn = likes.includes(currentUser.id)
-    ? 'like-btn ml-2 p-2 text-dark bg-l-accent rounded hover:bg-dark hover:text-light focus:outline-none'
-    : 'like-btn ml-2 p-2 text-dark rounded hover:bg-dark hover:text-light focus:outline-none'
 
   return (
     <li className='blogentry mb-8 flex flex-col items-start'>
@@ -39,20 +29,10 @@ const BlogEntry = ({
                 className='fixed bg-transparent inset-0 z-0'
                 onClick={() => setShowDelete(false)}></div>
             )}
-            <button
-              type='button'
-              onClick={() => setShowDelete(!showDelete)}
-              className='p-2 showdelete-btn text-dark rounded hover:bg-dark hover:text-light focus:outline-none'>
-              <MoreIcon />
-            </button>
+            <MoreButton func={() => setShowDelete(!showDelete)} />
             {showDelete && (
               <div className='absolute -mt-10 left-0 top-0 bg-l-accent rounded-t'>
-                <button
-                  type='button'
-                  onClick={sendDeleteEntry}
-                  className='delete-btn relative p-2 text-dark rounded bg-l-accent hover:bg-dark hover:text-light focus:outline-none'>
-                  <DeleteIcon />
-                </button>
+                <DeleteButton func={sendDeleteEntry} />
               </div>
             )}
           </div>
@@ -67,9 +47,7 @@ const BlogEntry = ({
             {likes.length || '0'}{' '}
             {likes.length > 1 || !likes.length ? 'likes' : 'like'}
           </span>
-          <button type='button' onClick={sendNewLike} className={likeBtn}>
-            <LikeIcon />
-          </button>
+          <LikeButton func={sendNewLike} likes={likes} id={currentUser.id} />
         </div>
       </div>
       <div className='w-full flex justify-between'>

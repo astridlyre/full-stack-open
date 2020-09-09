@@ -1,6 +1,9 @@
 /* eslint-disable indent */
 // state reducer
-const reducer = (state = { currentUser: null, entries: [] }, action) => {
+const reducer = (
+  state = { currentUser: null, entries: [], showLiked: false },
+  action
+) => {
   switch (action.type) {
     case 'LOGIN':
       return { ...state, currentUser: action.data }
@@ -22,6 +25,10 @@ const reducer = (state = { currentUser: null, entries: [] }, action) => {
       }
     case 'POPULATE_ENTRIES':
       return { ...state, entries: action.data }
+    case 'FILTER_LIKES':
+      return { ...state, showLiked: true }
+    case 'FILTER_RECENT':
+      return { ...state, showLiked: false }
     default:
       return state
   }
@@ -38,6 +45,12 @@ export const createEntry = (data, userData) => ({
       username: userData.username,
     },
   },
+})
+
+export const createBlogObj = (title, author, url) => ({
+  title,
+  author,
+  url,
 })
 
 export const createLogin = userData => ({ type: 'LOGIN', data: userData })
@@ -66,6 +79,10 @@ export const createNewUser = (username, password, name) => ({
   username,
   password,
   name,
+})
+
+export const filterHelper = value => ({
+  type: value ? 'FILTER_LIKES' : 'FILTER_RECENT',
 })
 
 export default reducer

@@ -1,17 +1,22 @@
-import React from 'react'
-import Button from './Button'
-import { ReactComponent as UpIcon } from '../assets/img/up.svg'
+import React, { useState } from 'react'
+import Button from '../Buttons/Button'
+import { ReactComponent as UpIcon } from '../../assets/img/up.svg'
+import { createBlogObj } from '../../reducers/blogReducer'
 
-const CreateModal = ({
-  createBlogEntry,
-  titleInput,
-  authorInput,
-  urlInput,
-  cancelCreateEntry,
-  setTitleInput,
-  setAuthorInput,
-  setUrlInput,
-}) => {
+const CreateModal = ({ sendNewEntry, setShowCreateModal }) => {
+  const [titleInput, setTitleInput] = useState('')
+  const [authorInput, setAuthorInput] = useState('')
+  const [urlInput, setUrlInput] = useState('')
+
+  const createBlogEntry = event => {
+    event.preventDefault()
+    sendNewEntry(createBlogObj(titleInput, authorInput, urlInput))
+    setTitleInput('')
+    setAuthorInput('')
+    setUrlInput('')
+    setShowCreateModal(false)
+  }
+
   return (
     <form
       onSubmit={createBlogEntry}
@@ -66,7 +71,7 @@ const CreateModal = ({
         type='button'
         id='createmodal-close'
         className='flex items-center justify-center p-2 font-sm font-semibold text-dark w-full hover:bg-dark hover:text-light'
-        onClick={cancelCreateEntry}>
+        onClick={() => setShowCreateModal(false)}>
         <UpIcon />
       </button>
     </form>

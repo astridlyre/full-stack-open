@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 module.exports = {
   purge: {
-    enabled: false,
+    enabled: true,
     content: ['./src/**/*.js'],
   },
   theme: {
