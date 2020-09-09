@@ -11,149 +11,115 @@ import {
   postNewUser,
   putNewLike,
 } from './services/services'
+import {
+  createEntry,
+  createLogin,
+  populateEntries,
+  userInfoExtractor,
+  createNewLike,
+  createLogout,
+  deleteHelper,
+  createNewUser,
+} from './reducers/blogReducer'
+import { useSelector, useDispatch } from 'react-redux'
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(null)
-  const [blogEntries, setBlogEntries] = useState([])
   const [showLiked, setShowLiked] = useState(false)
   const [notification, setNotification] = useState(null)
+  const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.currentUser)
+  const entries = useSelector(state => state.entries)
 
+  // initialize blog entries and set user in state
   useEffect(() => {
     const user = localStorage.getItem('user')
-    if (user) setCurrentUser(JSON.parse(user))
-    getBlogs().then(blogs => {
-      setBlogEntries(blogs)
-    })
-  }, [])
+    if (!user) return
+    dispatch(createLogin(JSON.parse(user)))
+    getBlogs()
+      .then(blogs => {
+        dispatch(populateEntries(blogs))
+      })
+      .catch(e => showNotification(`${e.message}`, 'red'))
+  }, [dispatch])
 
+  // function to create a new entry
   const sendNewEntry = async newEntry => {
     try {
       const response = await postNewBlog(newEntry, currentUser.token)
-      setBlogEntries(
-        blogEntries.concat({
-          ...response,
-          user: {
-            name: currentUser.name,
-            id: currentUser.id,
-            username: currentUser.username,
-          },
-        })
-      )
-      showNotification({
-        text: `submitted new entry: ${newEntry.title}`,
-        look: 'green',
-      })
+      dispatch(createEntry(response, currentUser))
+      showNotification(`submitted new entry: ${newEntry.title}`)
     } catch (e) {
-      showNotification({
-        text: `failed to submit: ${e.message}!`,
-        look: 'red',
-      })
+      showNotification(`failed to submit: ${e.message}!`, 'red')
     }
   }
 
+  // function to like or unlike a post
   const sendNewLike = async entryToChange => {
-    const userInfo = {
-      username: entryToChange.username,
-      id: entryToChange.user.id,
-      name: entryToChange.user.name,
-    }
     try {
       const response = await putNewLike(entryToChange, currentUser.token)
-
-      setBlogEntries(
-        blogEntries.map(entry =>
-          entry.id !== entryToChange.id
-            ? entry
-            : { ...response, user: userInfo }
-        )
-      )
+      dispatch(createNewLike(response, userInfoExtractor(entryToChange)))
     } catch (e) {
-      showNotification({
-        text: `action failed: ${e.message}!`,
-        look: 'red',
-      })
+      showNotification(`action failed: ${e.message}!`, 'red')
     }
   }
 
+  // function to delete entry
   const sendDeleteEntry = async idToDelete => {
     try {
       await deleteBlogEntry(idToDelete, currentUser.id, currentUser.token)
-      setBlogEntries(blogEntries.filter(entry => entry.id !== idToDelete))
-      showNotification({
-        text: 'deleted entry',
-        look: 'red',
-      })
+      dispatch(deleteHelper(idToDelete))
+      showNotification('deleted entry', 'red')
     } catch (e) {
-      showNotification({
-        text: `action failed: ${e.message}!`,
-        look: 'red',
-      })
+      showNotification(`action failed: ${e.message}!`, 'red')
     }
   }
 
+  // function to login user
   const setLogin = async (username, password) => {
     try {
       const user = await getLogin(username, password)
-      setCurrentUser(user)
+      dispatch(createLogin(user))
       localStorage.setItem('user', JSON.stringify(user))
-      showNotification({
-        text: `login successful - hi, ${user.name}!`,
-        look: 'green',
-      })
+      showNotification(`login successful - hi, ${user.name}!`)
     } catch (e) {
       e.message.includes('401')
-        ? showNotification({
-            text: 'login failed: username or password incorrect!',
-            look: 'red',
-          })
-        : showNotification({
-            text: `login failed: ${e.message}`,
-            look: 'red',
-          })
+        ? showNotification(
+            'login failed: username or password incorrect!',
+            'red'
+          )
+        : showNotification(`login failed: ${e.message}`, 'red')
     }
   }
 
+  // function to perform new user sign up
   const setSignup = async (username, password, name) => {
-    const newUser = {
-      username: username,
-      password: password,
-      name: name,
-    }
     try {
-      await postNewUser(newUser)
+      await postNewUser(createNewUser(username, password, name))
       setLogin(username, password)
     } catch (e) {
       e.message.includes('400')
-        ? showNotification({
-            text: 'signup failed: username already taken!',
-            look: 'red',
-          })
-        : showNotification({
-            text: `signup failed: ${e.message}!`,
-            look: 'red',
-          })
+        ? showNotification('signup failed: username already taken!', 'red')
+        : showNotification(`signup failed: ${e.message}!`, 'red')
     }
   }
 
+  // function to logout user
   const logout = () => {
     localStorage.removeItem('user')
-    setCurrentUser(null)
-    showNotification({
-      text: 'logged out',
-      look: 'green',
-    })
+    dispatch(createLogout())
+    showNotification('logged out')
   }
 
-  const showNotification = toShow => {
-    setNotification(toShow)
-    setTimeout(() => {
-      setNotification(null)
-    }, 1500)
+  // notification function
+  const showNotification = (text, look = 'green') => {
+    setNotification({ text, look })
+    setTimeout(() => setNotification(null), 1500)
   }
 
+  // filter function for either most recent or top liked
   const entriesToShow = showLiked
-    ? [...blogEntries].sort((a, b) => b.likes.length - a.likes.length)
-    : [...blogEntries].reverse()
+    ? [...entries].sort((a, b) => b.likes.length - a.likes.length)
+    : [...entries].reverse()
 
   return (
     <main className='sm:p-8 bg-light w-full min-h-screen flex justify-center'>

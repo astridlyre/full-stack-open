@@ -23,3 +23,7 @@ Live version: [https://linkr-list.herokuapp.com/](https://linkr-list.herokuapp.c
 #### 5.17 - 5.22
 
 Configured cypress for the project. Made a test to check the login form is displayed. Made tests for logging in, testing both successful and unsuccessful log in attempts. Made a test which checks that a logged in user can create a new entry. Made a test which checks that a user can like a blog entry. Made a test that the user who created the blog can delete it. Made a test which checks that blogs can be filtered by likes and they are in the correct order.
+
+#### 6
+
+Updated app to use Redux for storing state of user and blog entries.
