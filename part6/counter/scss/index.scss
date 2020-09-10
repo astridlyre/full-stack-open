@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@577&display=swap');
+@import 'reset';
+
+$light: #f4f6f5;
+$l-accent: #8b8e8a;
+$brand: #a5825d;
+$d-accent: #9d6d54;
+$dark: #3e3837;
+$green: #67a254;
+$yellow: #e4911c;
+$red: #f44336;
+$info: #3e3837;
+
+@mixin easeOut {
+  transition: all 0.085s ease-out;
+}
+
+html {
+  font-size: 15px;
+  font-family: Inconsolata;
+  background: $dark;
+  color: $light;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+}
+h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+h3 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+h4 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+#app {
+  padding: 4rem;
+  border: 1px solid rgba($d-accent, 0.3);
+
+  h1 {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  background: $d-accent;
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  color: $light;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 0;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px 2px rgba(darken($dark, 10%), 0.3),
+    (0px 0px 4px 0px rgba(darken($dark, 10%), 0.3));
+  @include easeOut();
+
+  &:hover {
+    background: darken($d-accent, 15%);
+    @include easeOut();
+  }
+}
+button + button {
+  margin-left: 0.5rem;
+}
+
+#counter {
+  padding: 4rem;
+  font-size: 5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: $brand;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+}
