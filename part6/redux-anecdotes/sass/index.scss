@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@531&display=swap');
+@import 'reset';
+
+$light: #f8f2e9;
+$l-accent: #78c0f1;
+$brand: #5b96c6;
+$d-accent: #b27688;
+$dark: #2e58af;
+
+@mixin easeOut {
+  transition: all 0.1s ease-out;
+}
+
+html {
+  font-size: 15px;
+}
+
+body {
+  font-family: Bitter;
+  background: $light;
+  color: darken($dark, 15%);
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $dark;
+  font-weight: 800;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+#container {
+  max-width: 768px;
+  padding: 4rem;
+}
+
+header {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+
+  h1 {
+    margin-left: 2rem;
+  }
+
+  #new-anecdote-div {
+    margin-top: 1rem;
+    box-shadow: 0px 12px 30px 6px rgba($dark, 0.075);
+    width: 100%;
+    padding: 2rem;
+    border-radius: 0.5rem;
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+    input {
+      margin-bottom: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+}
+
+main {
+  margin-top: 2rem;
+}
+
+button {
+  padding: 0.6rem 1.5rem;
+  outline: none;
+  border: none;
+  border-radius: 0.1rem;
+  box-shadow: 0px 10px 20px 5px rgba($dark, 0.075);
+  background: $d-accent;
+  color: $light;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  @include easeOut();
+
+  &:hover {
+    background: darken($d-accent, 10%);
+    @include easeOut();
+  }
+}
+
+input[type='text'] {
+  padding: 0.25rem 0;
+  border: none;
+  border-bottom: 2px solid rgba($dark, 0.2);
+  color: $dark;
+  font-family: Bitter;
+  background: transparent;
+
+  &:focus {
+    border: none;
+    border-bottom: 2px solid rgba($dark, 0.5);
+    outline: none;
+  }
+}
+
+.anecdote {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  padding: 2rem;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background: rgba($l-accent, 0.1);
+  }
+}
+
+.anecdote + .anecdote {
+  margin-top: 0.5rem;
+}
+
+.anecdote-content {
+  font-weight: 600;
+  color: $dark;
+  position: relative;
+  z-index: 0;
+  line-height: 1.5;
+}
+
+.anecdote-votes {
+  color: rgba($dark, 0.5);
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+
+  button {
+    margin-left: 1.5rem;
+  }
+
+  button + button {
+    margin-left: 0.5rem;
+    background: darken($d-accent, 20%);
+
+    &:hover {
+      background: darken($d-accent, 30%);
+    }
+  }
+}
