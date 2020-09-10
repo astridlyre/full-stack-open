@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { makeAnecdote } from '../reducers/anecdoteReducer'
+import { makeNotification, makeClear } from '../reducers/notificationReducer'
 
 const AnecdoteForm = () => {
   const [formInput, setFormInput] = useState(''),
@@ -9,7 +10,11 @@ const AnecdoteForm = () => {
     newAnecdote = event => {
       event.preventDefault()
       dispatch(makeAnecdote(formInput))
+      dispatch(makeNotification(`You added "${formInput}"!`, 'green'))
       setFormInput('')
+      setTimeout(() => {
+        dispatch(makeClear())
+      }, 5000)
     }
 
   return (

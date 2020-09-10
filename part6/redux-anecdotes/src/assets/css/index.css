@@ -134,7 +134,8 @@ body {
 
 #root {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  max-width: 100%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center; }
@@ -156,7 +157,9 @@ h2 {
 
 #container {
   max-width: 768px;
-  padding: 4rem; }
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box; }
 
 header {
   display: flex;
@@ -199,6 +202,8 @@ button {
 input[type='text'] {
   padding: 0.25rem 0;
   border: none;
+  width: 100%;
+  box-sizing: border-box;
   border-bottom: 2px solid rgba(46, 88, 175, 0.2);
   color: #2e58af;
   font-family: Bitter;
@@ -241,3 +246,80 @@ input[type='text'] {
     background: #7c4656; }
     .anecdote-votes button + button:hover {
       background: #5c333f; }
+
+#filter-div {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-bottom: 1rem; }
+  #filter-div input[type='radio'] {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 10000px; }
+  #filter-div .filter-div {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 30%; }
+  #filter-div .filter-text {
+    color: #2e58af;
+    border: 2px solid rgba(46, 88, 175, 0.2);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    margin-top: -0.1rem; }
+    #filter-div .filter-text::placeholder {
+      color: rgba(46, 88, 175, 0.3); }
+    #filter-div .filter-text-active {
+      color: #b27688;
+      border: 2px solid rgba(178, 118, 136, 0.2);
+      border-radius: 0.5rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      margin-top: -0.1rem; }
+      #filter-div .filter-text-active::placeholder {
+        color: rgba(178, 118, 136, 0.5); }
+  #filter-div label {
+    padding: 0.25rem;
+    cursor: pointer;
+    color: #2e58af;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: all 0.1s ease-out; }
+    #filter-div label:hover {
+      color: #192f5e;
+      transition: all 0.1s ease-out; }
+  #filter-div label + input + label {
+    margin-left: 0.5rem; }
+  #filter-div input:checked + label {
+    font-weight: 800;
+    color: #b27688;
+    border-bottom: 2px solid #b27688;
+    transition: all 0.1s ease-out; }
+    #filter-div input:checked + label:hover {
+      color: #7c4656;
+      transition: all 0.1s ease-out; }
+
+.notification {
+  padding: 1rem;
+  margin: -1rem 1rem 1rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 10px 20px 0px rgba(46, 88, 175, 0.2);
+  opacity: 0;
+  transition: all 0.1s ease-out; }
+
+.notification.green {
+  background: #45945b;
+  color: #f8f2e9;
+  opacity: 1;
+  transition: all 0.1s ease-out; }
+
+.notification.red {
+  background: #f44336;
+  color: #f8f2e9;
+  opacity: 1;
+  transition: all 0.1s ease-out; }

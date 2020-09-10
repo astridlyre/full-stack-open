@@ -6,6 +6,9 @@ $l-accent: #78c0f1;
 $brand: #5b96c6;
 $d-accent: #b27688;
 $dark: #2e58af;
+$green: #45945b;
+$red: #f44336;
+$yellow: #c28423;
 
 @mixin easeOut {
   transition: all 0.1s ease-out;
@@ -23,7 +26,8 @@ body {
 
 #root {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  max-width: 100%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -49,7 +53,9 @@ h2 {
 
 #container {
   max-width: 768px;
-  padding: 4rem;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 header {
@@ -105,6 +111,8 @@ button {
 input[type='text'] {
   padding: 0.25rem 0;
   border: none;
+  width: 100%;
+  box-sizing: border-box;
   border-bottom: 2px solid rgba($dark, 0.2);
   color: $dark;
   font-family: Bitter;
@@ -161,4 +169,105 @@ input[type='text'] {
       background: darken($d-accent, 30%);
     }
   }
+}
+
+#filter-div {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+
+  input[type='radio'] {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 10000px;
+  }
+
+  .filter-div {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 30%;
+  }
+
+  .filter-text {
+    color: $dark;
+    border: 2px solid rgba($dark, 0.2);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    margin-top: -0.1rem;
+    &::placeholder {
+      color: rgba($dark, 0.3);
+    }
+
+    &-active {
+      color: $d-accent;
+      border: 2px solid rgba($d-accent, 0.2);
+      border-radius: 0.5rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      margin-top: -0.1rem;
+      &::placeholder {
+        color: rgba($d-accent, 0.5);
+      }
+    }
+  }
+
+  label {
+    padding: 0.25rem;
+    cursor: pointer;
+    color: $dark;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    @include easeOut();
+
+    &:hover {
+      color: darken($dark, 20%);
+      @include easeOut();
+    }
+  }
+
+  label + input + label {
+    margin-left: 0.5rem;
+  }
+
+  input:checked + label {
+    font-weight: 800;
+    color: $d-accent;
+    border-bottom: 2px solid $d-accent;
+    @include easeOut();
+
+    &:hover {
+      color: darken($d-accent, 20%);
+      @include easeOut();
+    }
+  }
+}
+
+.notification {
+  padding: 1rem;
+  margin: -1rem 1rem 1rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 10px 20px 0px rgba($dark, 0.2);
+  opacity: 0;
+  @include easeOut();
+}
+
+.notification.green {
+  background: $green;
+  color: $light;
+  opacity: 1;
+  @include easeOut();
+}
+
+.notification.red {
+  background: $red;
+  color: $light;
+  opacity: 1;
+  @include easeOut();
 }
