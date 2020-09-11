@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { makeVote, makeDelete } from '../reducers/anecdoteReducer'
-import { makeNotification, makeClear } from '../reducers/notificationReducer'
+import { makeNotification, notification } from '../reducers/notificationReducer'
 import Anecdote from './Anecdote'
 import Filter from './Filter'
 
@@ -20,18 +20,22 @@ const AnecdoteList = () => {
 
   const vote = anecdote => {
     dispatch(makeVote(anecdote))
-    dispatch(makeNotification(`You voted for "${anecdote.content}"`, 'green'))
-    setTimeout(() => {
-      dispatch(makeClear())
-    }, 5000)
+    dispatch(
+      makeNotification(
+        notification(`You voted for "${anecdote.content}"`, 'green'),
+        3
+      )
+    )
   }
 
   const del = anecdote => {
     dispatch(makeDelete(anecdote))
-    dispatch(makeNotification(`You deleted "${anecdote.content}"`, 'red'))
-    setTimeout(() => {
-      dispatch(makeClear())
-    }, 5000)
+    dispatch(
+      makeNotification(
+        notification(`You deleted "${anecdote.content}"`, 'red'),
+        3
+      )
+    )
   }
 
   return (
