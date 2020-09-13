@@ -24,6 +24,10 @@ Live version: [https://linkr-list.herokuapp.com/](https://linkr-list.herokuapp.c
 
 Configured cypress for the project. Made a test to check the login form is displayed. Made tests for logging in, testing both successful and unsuccessful log in attempts. Made a test which checks that a logged in user can create a new entry. Made a test which checks that a user can like a blog entry. Made a test that the user who created the blog can delete it. Made a test which checks that blogs can be filtered by likes and they are in the correct order.
 
-#### 6
+#### 7.9 - 7.10
 
-Updated app to use Redux for storing state of user and blog entries.
+Refactored app from using component state to using Redux. Notifications use Redux now too. Refactored so that information about blog entries, user state, and creating new blogs happens through Redux store.
+
+#### 7.11 - 7-12
+
+Refactored so it is possible to like and delete blog entries. Stored signed in user in Redux store.

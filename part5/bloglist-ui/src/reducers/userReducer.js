@@ -43,6 +43,12 @@ export const loginCurrentUser = () => {
   }
 }
 
-export const createLogout = () => ({ type: 'LOGOUT' })
+export const createLogout = () => {
+  return async dispatch => {
+    await localStorage.removeItem('user')
+    dispatch({ type: 'LOGOUT' })
+    dispatch(makeNotification(notification('logged out'), 3))
+  }
+}
 
 export default userReducer

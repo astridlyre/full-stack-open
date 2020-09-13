@@ -24,13 +24,6 @@ const App = () => {
     }
   }, [dispatch])
 
-  // function to logout user
-  const logout = () => {
-    localStorage.removeItem('user')
-    dispatch(createLogout())
-    dispatch(makeNotification(notification('logged out'), 3))
-  }
-
   // filter function for either most recent or top liked
   const entriesToShow = showLiked
     ? [...entries].sort((a, b) => b.likes.length - a.likes.length)
@@ -39,11 +32,7 @@ const App = () => {
   return (
     <main className='sm:p-8 bg-light w-full min-h-screen flex justify-center'>
       <div className='max-w-screen-sm w-full'>
-        <Header
-          logout={logout}
-          notification={notification}
-          username={currentUser ? currentUser.name : ''}
-        />
+        <Header />
         {!currentUser ? <Login /> : <BlogList blogEntries={entriesToShow} />}
       </div>
     </main>
