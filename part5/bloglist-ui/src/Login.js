@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { createLogin, createNewUser } from './reducers/userReducer'
+import { makeNotification, notification } from './reducers/notificationReducer'
 import Button from './components/Buttons/Button'
 
-const Login = ({ setLogin, setSignup }) => {
+const Login = () => {
   const [usernameInput, setUsernameInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const [nameInput, setNameInput] = useState('')
   const [showSignUp, setShowSignUp] = useState(false)
+  const dispatch = useDispatch()
 
   const handleUsernameInput = event => setUsernameInput(event.target.value)
   const handlePasswordInput = event => setPasswordInput(event.target.value)
@@ -13,12 +17,48 @@ const Login = ({ setLogin, setSignup }) => {
 
   const login = event => {
     event.preventDefault()
-    setLogin(usernameInput, passwordInput)
+    // function to login user
+    try {
+      dispatch(createLogin(usernameInput, passwordInput))
+    } catch (e) {
+      e.message.includes('401')
+        ? dispatch(
+            makeNotification(
+              notification(
+                'login failed: username or password incorrect!',
+                'red'
+              ),
+              3
+            )
+          )
+        : dispatch(
+            makeNotification(
+              notification(`login failed: ${e.message}`, 'red'),
+              3
+            )
+          )
+    }
   }
 
   const signup = event => {
     event.preventDefault()
-    setSignup(usernameInput, passwordInput, nameInput)
+    try {
+      dispatch(createNewUser(usernameInput, passwordInput, nameInput))
+    } catch (e) {
+      e.message.includes('400')
+        ? dispatch(
+            makeNotification(
+              notification('signup failed: username already taken!', 'red'),
+              3
+            )
+          )
+        : dispatch(
+            makeNotification(
+              notification(`signup failed: ${e.message}!`, 'red'),
+              3
+            )
+          )
+    }
   }
 
   return (

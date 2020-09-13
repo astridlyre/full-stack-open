@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { filterHelper } from '../reducers/blogReducer'
+import { filterHelper } from '../reducers/filterReducer'
 
 const Filters = () => {
   const showLiked = useSelector(state => state.showLiked)

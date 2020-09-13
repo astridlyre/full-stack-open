@@ -1,16 +1,27 @@
 import React, { useState } from 'react'
 import Button from '../Buttons/Button'
 import { ReactComponent as UpIcon } from '../../assets/img/up.svg'
-import { createBlogObj } from '../../reducers/blogReducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { createEntry } from '../../reducers/blogReducer'
+import {
+  makeNotification,
+  notification,
+} from '../../reducers/notificationReducer'
 
-const CreateModal = ({ sendNewEntry, setShowCreateModal }) => {
+const CreateModal = ({ setShowCreateModal }) => {
+  const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.currentUser)
   const [titleInput, setTitleInput] = useState('')
   const [authorInput, setAuthorInput] = useState('')
   const [urlInput, setUrlInput] = useState('')
 
   const createBlogEntry = event => {
     event.preventDefault()
-    sendNewEntry(createBlogObj(titleInput, authorInput, urlInput))
+    try {
+      dispatch(createEntry(titleInput, authorInput, urlInput, currentUser))
+    } catch (e) {
+      dispatch(makeNotification(notification(`${e.message}`, 'red'), 3))
+    }
     setTitleInput('')
     setAuthorInput('')
     setUrlInput('')

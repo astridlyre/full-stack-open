@@ -27,8 +27,8 @@ const putNewLike = async (payload, token) => {
 
 const getLogin = async (username, password) => {
   const response = await axios.post(`${baseUrl}/login`, {
-    username: username,
-    password: password,
+    username,
+    password,
   })
   return response.data
 }
@@ -38,7 +38,7 @@ const postNewUser = async newUser => {
   return response.data
 }
 
-const deleteBlogEntry = async (blogId, userId, token) => {
+const deleteBlogEntry = async (blogId, token) => {
   const response = await axios.delete(`${baseUrl}/blogs/${blogId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
