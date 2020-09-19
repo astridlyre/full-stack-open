@@ -1,0 +1,21 @@
+@tailwind base;
+
+a {
+  @apply font-semibold text-blue-800;
+}
+
+a:hover {
+  @apply underline;
+}
+
+p {
+  @apply my-8 leading-relaxed;
+}
+
+@tailwind components;
+
+.ease {
+  transition: opacity 0.2s ease-out;
+}
+
+@tailwind utilities;
