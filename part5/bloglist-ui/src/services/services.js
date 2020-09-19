@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/api'
+const baseUrl = '/api'
 
 const getData = async (type = 'blogs') => {
   const response = await axios.get(`${baseUrl}/${type}`)
