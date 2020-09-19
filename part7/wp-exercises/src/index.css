@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Kufam:wght@669&display=swap');
+
+html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Kufam;
+}
+
+body {
+  padding: inherit;
+  margin: inherit;
+  background-color: brown;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+main {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  width: 100%;
+  max-width: 480px;
+  padding: 4rem;
+  background-color: aquamarine;
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+}
+
+span {
+  font-size: 2rem;
+  font-weight: bold;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  background-color: brown;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: darkslategrey;
+}
+
+button + button {
+  margin-left: 0.5rem;
+}
+
+ul {
+  list-style: square outside;
+}
+
+li + li {
+  margin-top: 0.5rem;
+}
