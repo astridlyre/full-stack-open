@@ -31,3 +31,7 @@ Refactored app from using component state to using Redux. Notifications use Redu
 #### 7.11 - 7-12
 
 Refactored so it is possible to like and delete blog entries. Stored signed in user in Redux store.
+
+#### 7.19 - 7.20
+
+I already had added styles using Tailwind CSS earlier in the course, so this is done.
