@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '../Buttons/Button'
 import { ReactComponent as UpIcon } from '../../assets/img/up.svg'
 import { useDispatch, useSelector } from 'react-redux'
+import { useField } from '../../hooks/index'
 import { createEntry } from '../../reducers/blogReducer'
 import {
   makeNotification,
@@ -11,20 +12,30 @@ import {
 const CreateModal = ({ setShowCreateModal }) => {
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser)
-  const [titleInput, setTitleInput] = useState('')
-  const [authorInput, setAuthorInput] = useState('')
-  const [urlInput, setUrlInput] = useState('')
+  const [title, clearTitle] = useField('text')
+  const [author, clearAuthor] = useField('text')
+  const [url, clearUrl] = useField('text')
+  const [blurb, clearBlurb] = useField('text')
 
   const createBlogEntry = event => {
     event.preventDefault()
     try {
-      dispatch(createEntry(titleInput, authorInput, urlInput, currentUser))
+      dispatch(
+        createEntry(
+          title.value,
+          author.value,
+          url.value,
+          blurb.value,
+          currentUser
+        )
+      )
     } catch (e) {
       dispatch(makeNotification(notification(`${e.message}`, 'red'), 3))
     }
-    setTitleInput('')
-    setAuthorInput('')
-    setUrlInput('')
+    clearTitle()
+    clearAuthor()
+    clearUrl()
+    clearBlurb()
     setShowCreateModal(false)
   }
 
@@ -37,11 +48,11 @@ const CreateModal = ({ setShowCreateModal }) => {
         <label htmlFor='createmodal-title' className='flex flex-col w-full'>
           <span className='text-sm font-semibold'>title</span>
           <input
-            type='text'
+            type={title.type}
             id='createmodal-title'
             className='form-input titleinput'
-            value={titleInput}
-            onChange={({ target }) => setTitleInput(target.value)}
+            value={title.value}
+            onChange={title.onChange}
             required
           />
         </label>
@@ -50,24 +61,38 @@ const CreateModal = ({ setShowCreateModal }) => {
           className='mt-4 flex flex-col w-full'>
           <span className='text-sm font-semibold'>author</span>
           <input
-            type='text'
+            type={author.type}
             id='createmodal-author'
             className='form-input'
-            value={authorInput}
-            onChange={({ target }) => setAuthorInput(target.value)}
+            value={author.value}
+            onChange={author.onChange}
             required
           />
         </label>
         <label htmlFor='createmodal-url' className='mt-4 flex flex-col w-full'>
           <span className='text-sm font-semibold'>url</span>
           <input
-            type='text'
+            type={url.type}
             id='createmodal-url'
             className='form-input'
-            value={urlInput}
-            onChange={({ target }) => setUrlInput(target.value)}
+            value={url.value}
+            onChange={url.onChange}
             required
           />
+        </label>
+        <label
+          htmlFor='createmodal-blurb'
+          className='mt-4 flex flex-col w-full'>
+          <span className='text-sm font-semibold'>blurb</span>
+          <textarea
+            type={blurb.type}
+            id='createmodal-blurb'
+            className='form-textarea resize-none'
+            rows='4'
+            maxLength='140'
+            value={blurb.value}
+            onChange={blurb.onChange}
+            required></textarea>
         </label>
         <div className='flex justify-end w-full'>
           <Button

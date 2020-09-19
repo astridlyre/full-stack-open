@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { createLogin, createNewUser } from './reducers/userReducer'
 import { makeNotification, notification } from './reducers/notificationReducer'
 import Button from './components/Buttons/Button'
+import { useField } from './hooks/index'
 
 const Login = () => {
-  const [usernameInput, setUsernameInput] = useState('')
-  const [passwordInput, setPasswordInput] = useState('')
-  const [nameInput, setNameInput] = useState('')
+  const [username] = useField('text')
+  const [password] = useField('password')
+  const [name] = useField('text')
   const [showSignUp, setShowSignUp] = useState(false)
   const dispatch = useDispatch()
-
-  const handleUsernameInput = event => setUsernameInput(event.target.value)
-  const handlePasswordInput = event => setPasswordInput(event.target.value)
-  const handleNameInput = event => setNameInput(event.target.value)
+  const history = useHistory()
 
   const login = event => {
     event.preventDefault()
     // function to login user
     try {
-      dispatch(createLogin(usernameInput, passwordInput))
+      dispatch(createLogin(username.value, password.value))
+      history.push('/')
     } catch (e) {
       e.message.includes('401')
         ? dispatch(
@@ -43,7 +43,8 @@ const Login = () => {
   const signup = event => {
     event.preventDefault()
     try {
-      dispatch(createNewUser(usernameInput, passwordInput, nameInput))
+      dispatch(createNewUser(username.value, password.value, name.value))
+      history.push('/')
     } catch (e) {
       e.message.includes('400')
         ? dispatch(
@@ -69,12 +70,12 @@ const Login = () => {
           <label htmlFor='name' className='mb-4 flex flex-col w-full'>
             <span className='text-sm font-semibold'>name</span>
             <input
-              type='text'
+              type={name.type}
               name='name'
               id='name'
               className='form-input'
-              value={nameInput}
-              onChange={handleNameInput}
+              value={name.value}
+              onChange={name.onChange}
               required
             />
           </label>
@@ -82,24 +83,24 @@ const Login = () => {
         <label htmlFor='username' className='flex flex-col w-full'>
           <span className='text-sm font-semibold'>username</span>
           <input
-            type='text'
+            type={username.type}
             name='username'
             id='username'
             className='form-input'
-            value={usernameInput}
-            onChange={handleUsernameInput}
+            value={username.value}
+            onChange={username.onChange}
             required
           />
         </label>
         <label htmlFor='password' className='mt-4 flex flex-col w-full'>
           <span className='text-sm font-semibold'>password</span>
           <input
-            type='password'
+            type={password.type}
             name='password'
             id='password'
             className='form-input'
-            value={passwordInput}
-            onChange={handlePasswordInput}
+            value={password.value}
+            onChange={password.onChange}
             required
           />
         </label>

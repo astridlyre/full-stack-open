@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { ReactComponent as Logo } from '../assets/img/logo.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import NotificationModal from './NotificationModal'
@@ -16,8 +17,18 @@ const Header = () => {
 
       {currentUser && (
         <div className='flex items-center'>
+          <Link
+            to='/'
+            className='mr-4 p-2 text-dark font-semibold text-sm flex items-center hover hover:bg-dark hover:text-light rounded-sm'>
+            blogs
+          </Link>
+          <Link
+            to='/users'
+            className='mr-4 p-2 text-dark font-semibold text-sm flex items-center hover hover:bg-dark hover:text-light rounded-sm'>
+            users
+          </Link>
           <span className='mr-2 font-semibold text-sm text-dark'>
-            hi {currentUser?.name}
+            hi {currentUser.name}
           </span>
           <LogoutButton func={() => dispatch(createLogout())} />
         </div>

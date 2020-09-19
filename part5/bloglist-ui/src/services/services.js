@@ -2,8 +2,8 @@ import axios from 'axios'
 
 const baseUrl = 'http://localhost:3001/api'
 
-const getBlogs = async () => {
-  const response = await axios.get(`${baseUrl}/blogs`)
+const getData = async (type = 'blogs') => {
+  const response = await axios.get(`${baseUrl}/${type}`)
   return response.data
 }
 
@@ -16,7 +16,7 @@ const postNewBlog = async (payload, token) => {
   return response.data
 }
 
-const putNewLike = async (payload, token) => {
+const putBlog = async (payload, token) => {
   const response = await axios.put(`${baseUrl}/blogs/${payload.id}`, payload, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -47,11 +47,4 @@ const deleteBlogEntry = async (blogId, token) => {
   return response.data
 }
 
-export {
-  getBlogs,
-  getLogin,
-  postNewBlog,
-  deleteBlogEntry,
-  postNewUser,
-  putNewLike,
-}
+export { getData, getLogin, postNewBlog, deleteBlogEntry, postNewUser, putBlog }

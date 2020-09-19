@@ -3,12 +3,13 @@ import CreateModal from '../CreateModal/CreateModal'
 import BlogEntry from './BlogEntry'
 import CreateModalButton from '../CreateModal/CreateModalButton'
 import Filters from '../Filters'
+import Wrapper from '../Wrapper'
 
 const BlogList = ({ blogEntries }) => {
   const [showCreateModal, setShowCreateModal] = useState(false)
 
   return (
-    <section className='flex flex-col justify-start items-center text-dark font-display sm:rounded px-2 sm:px-0'>
+    <Wrapper>
       {showCreateModal ? (
         <CreateModal setShowCreateModal={setShowCreateModal} />
       ) : (
@@ -20,7 +21,7 @@ const BlogList = ({ blogEntries }) => {
           <BlogEntry key={entry.id} entry={entry} />
         ))}
       </ul>
-    </section>
+    </Wrapper>
   )
 }
 

@@ -2,9 +2,9 @@
 // state reducer
 import {
   deleteBlogEntry,
-  getBlogs,
+  getData,
   postNewBlog,
-  putNewLike,
+  putBlog,
 } from '../services/services'
 
 const blogReducer = (state = [], action) => {
@@ -13,7 +13,7 @@ const blogReducer = (state = [], action) => {
       return state.concat(action.data)
     case 'DEL_ENTRY':
       return state.filter(entry => entry.id !== action.data)
-    case 'NEW_LIKE':
+    case 'UPDATE_ENTRY':
       return state.map(entry =>
         entry.id === action.data.id ? action.data : entry
       )
@@ -25,10 +25,10 @@ const blogReducer = (state = [], action) => {
 }
 
 // helper functions
-export const createEntry = (title, author, url, currentUser) => {
+export const createEntry = (title, author, url, blurb, currentUser) => {
   return async dispatch => {
     const newEntry = await postNewBlog(
-      createBlogObj(title, author, url),
+      createBlogObj(title, author, url, blurb),
       currentUser.token
     )
     dispatch({
@@ -45,10 +45,11 @@ export const createEntry = (title, author, url, currentUser) => {
   }
 }
 
-export const createBlogObj = (title, author, url) => ({
+export const createBlogObj = (title, author, url, blurb) => ({
   title,
   author,
   url,
+  blurb,
 })
 
 export const deleteEntry = (id, token) => {
@@ -58,11 +59,29 @@ export const deleteEntry = (id, token) => {
   }
 }
 
-export const createNewLike = (data, token) => {
+export const createNewLike = (data, currentUser) => {
   return async dispatch => {
-    const response = await putNewLike(data, token)
+    const updatedBlog = data.likes.includes(currentUser.id)
+      ? {
+          ...data,
+          likes: [...data.likes].filter(like => like !== currentUser.id),
+        }
+      : { ...data, likes: [...data.likes].concat(currentUser.id) }
+
+    const response = await putBlog(updatedBlog, currentUser.token)
     dispatch({
-      type: 'NEW_LIKE',
+      type: 'UPDATE_ENTRY',
+      data: { ...response, user: userInfoExtractor(data) },
+    })
+  }
+}
+
+export const createNewComment = (data, comment, token) => {
+  return async dispatch => {
+    const updatedBlog = { ...data, comments: data.comments.concat(comment) }
+    const response = await putBlog(updatedBlog, token)
+    dispatch({
+      type: 'UPDATE_ENTRY',
       data: { ...response, user: userInfoExtractor(data) },
     })
   }
@@ -70,7 +89,7 @@ export const createNewLike = (data, token) => {
 
 export const populateEntries = () => {
   return async dispatch => {
-    const entries = await getBlogs()
+    const entries = await getData()
     dispatch({
       type: 'POPULATE_ENTRIES',
       data: entries,
