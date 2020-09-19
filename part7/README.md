@@ -12,4 +12,5 @@ These are each in their respective folders.
 
 #### Bloglist App
 
-In progress.
+This app is still under the part 5 folder, here is the link: https://github.com/astridlyre/full-stack-open/tree/master/part5/bloglist-ui
+I completed all the exercises. You can view the live version here: https://linkr-list.herokuapp.com/
