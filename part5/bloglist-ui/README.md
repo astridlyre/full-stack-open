@@ -32,6 +32,10 @@ Refactored app from using component state to using Redux. Notifications use Redu
 
 Refactored so it is possible to like and delete blog entries. Stored signed in user in Redux store.
 
+#### 7.13 - 7.18
+
+Implemented a user view to see basic user info in a list. Implemented an individual user view as well. Added a blog view, navigation, and the ability to add comments, on the frontend and backend.
+
 #### 7.19 - 7.20
 
 I already had added styles using Tailwind CSS earlier in the course, so this is done.
