@@ -28,8 +28,8 @@ const UserFull = ({ user }) => (
           <Link
             key={entry.id}
             to={`/blogs/${entry.id}`}
-            className='block border-l-8 hover:border-l-accent border-transparent px-2'>
-            <li className='font-semibold font-display text-dark text-lg'>
+            className='block hover:text-d-accent text-dark px-2'>
+            <li className='font-semibold font-display text-lg'>
               {entry.title}
             </li>
           </Link>

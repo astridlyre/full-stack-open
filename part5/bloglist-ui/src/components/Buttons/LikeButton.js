@@ -5,7 +5,7 @@ const LikeButton = ({ func, likes, id }) => {
   const likeBtnStyles =
     'like-btn ml-2 p-2 text-dark rounded hover:bg-dark hover:text-light focus:outline-none'
   const likeBtn = likes.includes(id)
-    ? `${likeBtnStyles} bg-l-accent`
+    ? `${likeBtnStyles} text-d-accent`
     : likeBtnStyles
 
   return (

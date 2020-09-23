@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import React, { useEffect } from 'react'
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
+import { Switch, Route, useRouteMatch, Redirect } from 'react-router-dom'
 import Header from './components/Header'
 import Login from './Login'
 import BlogList from './components/BlogList/BlogList'
@@ -83,7 +83,11 @@ const App = () => {
           <Route
             path='/'
             render={() =>
-              currentUser ? <BlogList blogEntries={entriesToShow} /> : <Login />
+              currentUser ? (
+                <Redirect to={{ pathname: '/blogs', state: { from: '/' } }} />
+              ) : (
+                <Login />
+              )
             }
           />
         </Switch>

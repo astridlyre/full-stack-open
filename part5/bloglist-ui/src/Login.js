@@ -19,7 +19,7 @@ const Login = () => {
     // function to login user
     try {
       dispatch(createLogin(username.value, password.value))
-      history.push('/')
+      history.push('/blogs')
     } catch (e) {
       e.message.includes('401')
         ? dispatch(
@@ -44,7 +44,7 @@ const Login = () => {
     event.preventDefault()
     try {
       dispatch(createNewUser(username.value, password.value, name.value))
-      history.push('/')
+      history.push('/blogs')
     } catch (e) {
       e.message.includes('400')
         ? dispatch(

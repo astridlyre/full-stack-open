@@ -6,13 +6,13 @@ const Filters = () => {
   const showLiked = useSelector(state => state.showLiked)
   const dispatch = useDispatch()
   const filterStyles =
-    'font-sm font-semibold text-dark hover:bg-dark hover:text-light px-2 focus:outline-none border-b-4 border-light'
+    'font-sm font-semibold text-dark hover:bg-dark hover:text-light px-2 focus:outline-none'
 
   return (
     <div className='mt-8 flex items-center justify-evenly w-full p-2'>
       <button
         className={
-          showLiked ? `${filterStyles}` : `${filterStyles} border-l-accent`
+          showLiked ? `${filterStyles}` : `${filterStyles} text-d-accent`
         }
         type='button'
         id='filter-recent'
@@ -21,7 +21,7 @@ const Filters = () => {
       </button>
       <button
         className={
-          !showLiked ? `${filterStyles}` : `${filterStyles} border-l-accent`
+          !showLiked ? `${filterStyles}` : `${filterStyles} text-d-accent`
         }
         type='button'
         id='filter-liked'

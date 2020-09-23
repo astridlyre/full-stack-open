@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { ReactComponent as Logo } from '../assets/img/logo.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import NotificationModal from './NotificationModal'
@@ -10,6 +10,8 @@ const Header = () => {
   const dispatch = useDispatch()
   const notification = useSelector(state => state.notification)
   const currentUser = useSelector(state => state.currentUser)
+  const baseStyle =
+    'mr-4 p-2 text-dark font-semibold text-sm flex items-center hover hover:bg-dark hover:text-light rounded-sm'
 
   return (
     <header className='sm:px-0 px-4 py-8 mb-8 mt-8 sm:mt-0 flex flex-col sm:flex-row justify-between items-center w-full relative'>
@@ -17,16 +19,18 @@ const Header = () => {
 
       {currentUser && (
         <div className='flex items-center'>
-          <Link
-            to='/'
-            className='mr-4 p-2 text-dark font-semibold text-sm flex items-center hover hover:bg-dark hover:text-light rounded-sm'>
+          <NavLink
+            to='/blogs'
+            activeClassName='text-d-accent'
+            className={baseStyle}>
             blogs
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to='/users'
-            className='mr-4 p-2 text-dark font-semibold text-sm flex items-center hover hover:bg-dark hover:text-light rounded-sm'>
+            activeClassName='text-d-accent'
+            className={baseStyle}>
             users
-          </Link>
+          </NavLink>
           <span className='mr-2 font-semibold text-sm text-dark'>
             hi {currentUser.name}
           </span>
