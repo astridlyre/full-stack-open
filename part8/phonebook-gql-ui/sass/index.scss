@@ -1,0 +1,288 @@
+@import 'reset';
+@import 'forms';
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@531&display=swap');
+
+// variables
+$light: #f6f7f8;
+$laccent: #6bc1da;
+$primary: #5293a3;
+$daccent: #2fadce;
+$dark: #142a4a;
+
+$green: #4ea769;
+$yellow: #cb9731;
+$red: #f44336;
+
+@mixin ease {
+  transition: all 0.1s ease-out;
+}
+
+.btn {
+  color: $light;
+  cursor: pointer;
+  border: none;
+  padding: 0.55rem 1.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  @include ease();
+
+  &:hover {
+    @include ease();
+  }
+
+  &-default {
+    background-color: $dark;
+
+    &:hover {
+      background-color: lighten($dark, 10%);
+    }
+  }
+  &-primary {
+    background-color: $primary;
+
+    &:hover {
+      background-color: darken($primary, 10%);
+    }
+  }
+  &-success {
+    background-color: $green;
+
+    &:hover {
+      background-color: darken($green, 10%);
+    }
+  }
+  &-warning {
+    background-color: $yellow;
+
+    &:hover {
+      background-color: darken($yellow, 10%);
+    }
+  }
+  &-danger {
+    background-color: $red;
+
+    &:hover {
+      background-color: darken($red, 10%);
+    }
+  }
+  &-gray {
+    background-color: darken($light, 25%);
+
+    &:hover {
+      background-color: darken($light, 40%);
+    }
+  }
+
+  &-container {
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+
+    button:first-of-type {
+      margin-top: 2rem;
+    }
+
+    button + button {
+      margin-top: 0.5rem;
+    }
+  }
+
+  &-del-num {
+    padding: 0.1rem;
+    border-radius: 0.25rem;
+    align-self: start;
+    color: $dark;
+
+    @include ease();
+
+    &:hover {
+      background-color: $red;
+      color: $light;
+      @include ease();
+    }
+  }
+
+  &-more-num {
+    padding: 0.1rem;
+    border-radius: 0.25rem;
+    align-self: start;
+    color: $dark;
+
+    @include ease();
+
+    &:hover {
+      background-color: $green;
+      color: $light;
+      @include ease();
+    }
+  }
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: 900;
+}
+h2 {
+  font-size: 3rem;
+  font-weight: 900;
+}
+h3 {
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+h4 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+h5 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+h6 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+html {
+  background-color: $dark;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+.container {
+  max-width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.wrapper {
+  background: $light;
+  max-width: 600px;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 4rem;
+  border-radius: 1rem;
+  box-shadow: 0.1rem 0.1rem 3rem 1rem rgba(darken($dark, 10%), 0.7);
+}
+
+label + input {
+  margin-top: 0.1rem;
+}
+
+label {
+  color: $dark;
+  font-weight: 600;
+}
+
+.login-form,
+.create-form {
+  padding: 2rem;
+  margin: -2rem;
+  border-radius: 1rem;
+  background-color: $light;
+
+  label {
+    margin-top: 0.5rem;
+  }
+
+  label:first-of-type {
+    margin-top: 2rem;
+  }
+}
+
+.w-full {
+  width: 100%;
+}
+
+.number {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid rgba($laccent, 0.2);
+  border-radius: 1rem;
+
+  &-info {
+    text-align: right;
+    margin-left: 0.5rem;
+  }
+}
+
+.modal {
+  z-index: 1;
+}
+
+.modal-bg {
+  background-color: rgba($dark, 0.9);
+  z-index: -1;
+}
+
+.d-accent {
+  color: $daccent;
+}
+
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+  }
+
+  header {
+    margin-bottom: 1rem;
+  }
+
+  .wrapper {
+    padding: 2rem;
+  }
+
+  .number {
+    flex-flow: column nowrap;
+    margin-top: 2rem;
+    padding: 0;
+    border: none;
+
+    &-info {
+      text-align: left;
+      margin-left: 0;
+    }
+  }
+
+  .filter-div {
+    flex-flow: column nowrap;
+    align-items: flex-end;
+
+    .labeled-input {
+      width: 100%;
+    }
+
+    button {
+      margin-left: 0;
+    }
+  }
+}
+
+.filter-div {
+  display: flex;
+  align-items: flex-end;
+
+  .labeled-input {
+    flex-grow: 1;
+  }
+
+  button {
+    margin-left: 0.5rem;
+    margin-bottom: 0.065rem;
+  }
+}
+
+@import 'utils';
