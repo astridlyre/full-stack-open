@@ -6,6 +6,4 @@ Implemented queries to **bookCount** and **authorCount** which return the number
 
 #### Exercises 8.13 - 8.16
 
-Changed the library app to save the data to a database. All queries including **allBooks** with the parameter _author_. Database validation errors are now handled sensibly - throwing a _UserInputError_ with a suitable error message.
-
-Added user management to the app.
+Changed the library app to save the data to a database. All queries including **allBooks** with the parameter _author_. Database validation errors are now handled sensibly - throwing a _UserInputError_ with a suitable error message. Added user management to the app.
