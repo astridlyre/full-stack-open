@@ -46,10 +46,10 @@ const NewBook = ({ show }) => {
   return (
     <form
       onSubmit={submit}
-      className='sm:grid sm:grid-cols-2 sm:gap-x-4 sm:gap-y-4'>
+      className='sm:grid sm:grid-cols-2 sm:gap-x-4 sm:gap-y-4 pb-4'>
       <h2 className='font-black text-4xl text-pink-700 col-span-2'>Add book</h2>
-      <LabeledInput text='Title' name='title' input={title} />
-      <LabeledInput text='Author' name='author' input={author} />
+      <LabeledInput text='Title' name='title' input={title} minLength='2' />
+      <LabeledInput text='Author' name='author' input={author} minLength='2' />
       <LabeledInput text='Published' name='published' input={published} />
       <div className='flex flex-col'>
         <LabeledInput text='Genre' name='genre' input={genre} />

@@ -11,19 +11,19 @@ const Books = ({ show }) => {
   }
 
   return (
-    <div>
+    <div className='pb-4'>
       <h2 className='font-black text-4xl text-pink-700'>Books</h2>
       <table className='mt-4 pt-4 border-t-2 border-gray-800 w-full text-sm sm:text-base'>
         <tbody>
           <tr className='text-gray-800'>
             <th></th>
-            <th>author</th>
-            <th>published</th>
+            <th>Author</th>
+            <th>Published</th>
           </tr>
           {books.map(a => (
             <tr key={a.title}>
               <td className=' font-semibold'>{a.title}</td>
-              <td className=''>{a.author}</td>
+              <td className=''>{a.author.name}</td>
               <td className=''>{a.published}</td>
             </tr>
           ))}

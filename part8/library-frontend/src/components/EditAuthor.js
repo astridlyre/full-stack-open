@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SET_BIRTHYEAR, ALL_AUTHORS } from '../queries'
 import { useMutation } from '@apollo/client'
 import LabeledInput from './LabeledInput'
@@ -6,11 +6,15 @@ import { useField } from '../hooks'
 import Button from './Button'
 
 const EditAuthor = ({ authors }) => {
-  const [name, clearName] = useField('text')
+  const [name, clearName, setName] = useField('text')
   const [born, clearBorn] = useField('number')
   const [setBirthyear] = useMutation(SET_BIRTHYEAR, {
     refetchQueries: [{ query: ALL_AUTHORS }],
   })
+
+  useEffect(() => {
+    setName(authors[0]?.name || '')
+  }, [setName, authors])
 
   const updateAuthor = event => {
     event.preventDefault()

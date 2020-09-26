@@ -16,7 +16,7 @@ const Authors = ({ show }) => {
   }
 
   return (
-    <div>
+    <div className='pb-4'>
       <h2 className='font-black text-4xl text-pink-700'>Authors</h2>
       <table className='mt-4 pt-4 border-t-2 border-gray-800 w-full text-sm sm:text-base'>
         <tbody>

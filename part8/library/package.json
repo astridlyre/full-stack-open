@@ -12,6 +12,12 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.18.0",
+    "bcrypt": "^5.0.0",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.7",
+    "mongoose-unique-validator": "^2.0.3",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
