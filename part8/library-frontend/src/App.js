@@ -36,7 +36,7 @@ const App = () => {
             setCurrentUser={setCurrentUser}
           />
 
-          <Authors show={page === 'authors'} />
+          <Authors show={page === 'authors'} currentUser={currentUser} />
 
           <Books show={page === 'books'} />
 
