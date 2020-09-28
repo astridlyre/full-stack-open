@@ -2,6 +2,8 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_AUTHORS } from '../queries'
 import EditAuthor from './EditAuthor'
+import PageWrapper from './PageWrapper'
+import PageTitle from './PageTitle'
 
 const Authors = ({ show, currentUser }) => {
   const authorsResult = useQuery(ALL_AUTHORS)
@@ -12,13 +14,17 @@ const Authors = ({ show, currentUser }) => {
   }
 
   if (authorsResult.loading) {
-    return <h2 className='font-black text-4xl text-pink-700'>Loading...</h2>
+    return (
+      <PageWrapper>
+        <PageTitle text='Loading...' />
+      </PageWrapper>
+    )
   }
 
   return (
-    <div className='pb-4'>
-      <h2 className='font-black text-4xl text-pink-700'>Authors</h2>
-      <table className='mt-4 pt-4 border-t-2 border-gray-800 w-full text-sm sm:text-base'>
+    <PageWrapper>
+      <PageTitle text='Authors' />
+      <table className='mt-4 pt-4 border-t-2 border-gray-800 w-full text-sm sm:text-base flex-grow border-separate table-auto'>
         <tbody>
           <tr className='text-gray-800'>
             <th> </th>
@@ -35,7 +41,7 @@ const Authors = ({ show, currentUser }) => {
         </tbody>
       </table>
       {currentUser && <EditAuthor authors={authors} />}
-    </div>
+    </PageWrapper>
   )
 }
 

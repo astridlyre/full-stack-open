@@ -1,0 +1,57 @@
+.navlink:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 400%;
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  transform: translateY(-100%);
+  transition: all 0.3s ease-in;
+  transform-origin: center;
+  z-index: -1;
+  background-color: #b83280;
+}
+
+.navlink {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.navlink:hover:after {
+  transform: translateY(0);
+  transition: all 0.2s ease-out;
+}
+
+.btn-animation {
+  transform: translateY(0);
+  transition: all 0.1s ease-out;
+}
+
+.btn-animation:hover {
+  transform: translateY(-2px);
+  transition: all 0.1s ease-out;
+  box-shadow: 0 2px 10px 1px #2d374819;
+}
+
+.h1-animation {
+  animation: fadeInLeft 0.3s ease-in;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+
+  90% {
+    opacity: 0.98;
+    transform: translateX(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

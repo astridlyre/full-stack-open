@@ -9,6 +9,7 @@ import {
 import { setContext } from 'apollo-link-context'
 import App from './App'
 import './assets/css/app.css'
+import './assets/css/animations.css'
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('user')

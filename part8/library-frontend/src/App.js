@@ -18,30 +18,29 @@ const App = () => {
 
   return (
     <Wrapper>
-      <div className='p-4 sm:p-8 flex justify-center w-full bg-gray-800 max-w-screen-md sm:rounded-t-sm md:mt-8'>
-        <Logo className='sm:w-48 w-32 text-pink-700' />
-      </div>
-      <div className='max-w-screen-md w-full bg-gray-100 rounded-sm'>
+      <Login
+        show={page === 'login'}
+        setPage={setPage}
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
+      />
+
+      <Authors show={page === 'authors'} currentUser={currentUser} />
+
+      <Books show={page === 'books'} />
+
+      {currentUser && <NewBook show={page === 'add'} />}
+
+      <div className='sm:col-span-2 p-0 sm:p-0 sm:h-screen flex flex-col w-full bg-gray-800'>
+        <div className='p-4 flex justify-center flex-grow'>
+          <Logo className='lg:w-64 sm:w-48 w-32 text-pink-700' />
+        </div>
         <NavBar
           page={page}
           setPage={setPage}
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
         />
-        <div className='sm:p-16 p-4'>
-          <Login
-            show={page === 'login'}
-            setPage={setPage}
-            currentUser={currentUser}
-            setCurrentUser={setCurrentUser}
-          />
-
-          <Authors show={page === 'authors'} currentUser={currentUser} />
-
-          <Books show={page === 'books'} />
-
-          {currentUser && <NewBook show={page === 'add'} />}
-        </div>
       </div>
     </Wrapper>
   )

@@ -29,14 +29,16 @@ const EditAuthor = ({ authors }) => {
 
   return (
     <form
-      className='sm:grid sm:grid-cols-2 sm:gap-x-4 sm:gap-y-4 mt-8'
+      className='sm:grid sm:grid-cols-2 sm:gap-x-4 sm:gap-y-4 mt-8 md:bg-gray-200 md:rounded md:p-8'
       onSubmit={updateAuthor}>
       <h5 className='mb-2 sm:mb-0 col-span-2 text-gray-800 font-black text-2xl'>
         Set birthyear
       </h5>
 
       <label htmlFor='name' className='flex flex-col w-full'>
-        <span className='font-semibold text-sm text-gray-800'>Name</span>
+        <span className='font-semibold text-sm md:text-lg text-gray-800'>
+          Name
+        </span>
         <select
           name='name'
           id='name'
@@ -55,7 +57,7 @@ const EditAuthor = ({ authors }) => {
       <Button
         text='Update author'
         type='submit'
-        look='mt-2 sm:mt-0 px-6 py-2 bg-gray-300 text-gray-800 rounded-sm hover:bg-gray-400 text-sm font-semibold'
+        look='btn-animation mt-2 sm:mt-0 px-6 py-2 bg-gray-400 text-gray-800 rounded-sm hover:bg-gray-500 text-sm font-semibold'
       />
     </form>
   )

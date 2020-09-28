@@ -4,6 +4,12 @@ tr:nth-child(even) {
   @apply bg-gray-200;
 }
 
+tr,
+th,
+td {
+  padding: 0.5rem;
+}
+
 @tailwind components;
 
 @tailwind utilities;

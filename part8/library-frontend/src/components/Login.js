@@ -4,6 +4,8 @@ import { ADD_USER, LOGIN } from '../queries'
 import { useField } from '../hooks'
 import LabeledInput from './LabeledInput'
 import Button from './Button'
+import PageWrapper from './PageWrapper'
+import PageTitle from './PageTitle'
 
 const Login = ({ show, currentUser, setCurrentUser, setPage }) => {
   const [name, clearName] = useField('text')
@@ -54,42 +56,34 @@ const Login = ({ show, currentUser, setCurrentUser, setPage }) => {
     return null
   }
 
-  if (currentUser) {
-    return (
-      <div className='w-full flex flex-col items-center pb-4'>
-        <h2 className='font-black text-4xl text-pink-700 w-full'>Hi</h2>
-        <div className='mt-4 pt-4 border-t-2 border-gray-800 w-full text-sm sm:text-base'></div>
-      </div>
-    )
-  }
-
   return (
-    <div className='w-full flex flex-col items-center pb-4'>
-      <h2 className='font-black text-4xl text-pink-700'>
-        {isSignUpVisible ? 'Sign Up' : 'Login'}
-      </h2>
-      <form
-        className='mt-4 pt-4 border-t-2 border-gray-800 w-full text-sm sm:text-base max-w-xs flex flex-col items-center'
-        onSubmit={isSignUpVisible ? signup : login}>
-        {isSignUpVisible && (
-          <LabeledInput input={name} text='Name' name='name' />
-        )}
-        <LabeledInput input={username} text='Username' name='username' />
-        <LabeledInput input={password} text='Password' name='password' />
+    <PageWrapper>
+      <div className='w-full flex flex-col items-center'>
+        <PageTitle text={isSignUpVisible ? 'Sign Up' : 'Login'} />
 
-        <Button
-          text={isSignUpVisible ? 'Create' : 'Login'}
-          look='mt-8 px-6 py-2 bg-pink-700 text-gray-100 rounded-sm hover:bg-pink-900 text-sm font-semibold w-full'
-          type='submit'
-        />
-        <Button
-          text={isSignUpVisible ? 'Back' : 'Create Account'}
-          look='mt-2 px-6 py-2 bg-gray-300 text-gray-800 rounded-sm hover:bg-gray-400 text-sm font-semibold w-full'
-          type='button'
-          onClick={() => setIsSignUpVisible(!isSignUpVisible)}
-        />
-      </form>
-    </div>
+        <form
+          className='mt-4 pt-4 border-t-2 border-gray-800 w-full text-sm sm:text-base max-w-xs flex flex-col items-center'
+          onSubmit={isSignUpVisible ? signup : login}>
+          {isSignUpVisible && (
+            <LabeledInput input={name} text='Name' name='name' />
+          )}
+          <LabeledInput input={username} text='Username' name='username' />
+          <LabeledInput input={password} text='Password' name='password' />
+
+          <Button
+            text={isSignUpVisible ? 'Create' : 'Login'}
+            look='btn-animation mt-8 px-6 py-2 bg-pink-700 text-gray-100 rounded-sm hover:bg-pink-900 text-sm font-semibold w-full'
+            type='submit'
+          />
+          <Button
+            text={isSignUpVisible ? 'Back' : 'Create Account'}
+            look='btn-animation mt-2 px-6 py-2 bg-gray-300 text-gray-800 rounded-sm hover:bg-gray-400 text-sm font-semibold w-full'
+            type='button'
+            onClick={() => setIsSignUpVisible(!isSignUpVisible)}
+          />
+        </form>
+      </div>
+    </PageWrapper>
   )
 }
 

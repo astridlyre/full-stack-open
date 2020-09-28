@@ -1,6 +1,8 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_BOOKS } from '../queries'
+import PageWrapper from './PageWrapper'
+import PageTitle from './PageTitle'
 
 const Books = ({ show }) => {
   const booksResult = useQuery(ALL_BOOKS)
@@ -11,14 +13,14 @@ const Books = ({ show }) => {
   }
 
   return (
-    <div className='pb-4'>
-      <h2 className='font-black text-4xl text-pink-700'>Books</h2>
-      <table className='mt-4 pt-4 border-t-2 border-gray-800 w-full text-sm sm:text-base'>
+    <PageWrapper>
+      <PageTitle text='Books' />
+      <table className='mt-4 pt-4 border-t-2 border-gray-800 w-full text-sm sm:text-base flex-grow border-separate table-auto'>
         <tbody>
           <tr className='text-gray-800'>
             <th></th>
-            <th>Author</th>
-            <th>Published</th>
+            <th className='text-left'>Author</th>
+            <th className='text-left'>Published</th>
           </tr>
           {books.map(a => (
             <tr key={a.title}>
@@ -29,7 +31,7 @@ const Books = ({ show }) => {
           ))}
         </tbody>
       </table>
-    </div>
+    </PageWrapper>
   )
 }
 
