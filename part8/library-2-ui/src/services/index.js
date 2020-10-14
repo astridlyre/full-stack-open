@@ -18,28 +18,38 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
 })
 
-// const GET_AUTHORS = gql`
-//   query {
-//     allAuthors {
-//       name
-//       born
-//       bookCount
-//       id
-//     }
-//   }
-// `
+const GET_AUTHORS = gql`
+  query {
+    allAuthors {
+      name
+      born
+      bookCount
+      id
+    }
+  }
+`
 
-// const GET_BOOKS = gql`
-//   query {
-//     allBooks {
-//       title
-//       published
-//       author
-//       genres
-//       id
-//     }
-//   }
-// `
+const GET_GENRES = gql`
+  query {
+    allBooks {
+      genres
+    }
+  }
+`
+
+const GET_BOOKS = gql`
+  query allBooks($genres: String) {
+    allBooks(genres: $genres) {
+      title
+      published
+      author {
+        name
+      }
+      genres
+      id
+    }
+  }
+`
 
 const GET_AUTHORS_AND_BOOKS = gql`
   query {
@@ -96,13 +106,31 @@ const EDIT_AUTHOR = gql`
   }
 `
 
+const DEL_BOOK = gql`
+  mutation delBook($id: ID!) {
+    delBook(id: $id) {
+      message
+    }
+  }
+`
+
 const ME = gql`
   query {
     me {
       name
       username
-      favoriteGenre
+      genre
       id
+    }
+  }
+`
+
+const EDIT_USER = gql`
+  mutation editUser($username: String!, $name: String!, $genre: String!) {
+    editUser(username: $username, name: $name, genre: $genre) {
+      username
+      name
+      genre
     }
   }
 `
@@ -126,10 +154,15 @@ const LOGIN = gql`
 
 export {
   client,
+  GET_BOOKS,
+  GET_AUTHORS,
+  GET_GENRES,
   GET_AUTHORS_AND_BOOKS,
   ADD_BOOK,
   EDIT_AUTHOR,
   ME,
+  EDIT_USER,
+  DEL_BOOK,
   ADD_USER,
   LOGIN,
 }

@@ -3,9 +3,8 @@ import { useField } from '../hooks/index'
 import Page from '../components/Page'
 import PageTitle from '../components/PageTitle'
 import LabeledInput from '../components/LabeledInput'
-import LabelInput from '../components/LabeledInput'
 import { useMutation } from '@apollo/client'
-import { ADD_BOOK, GET_AUTHORS_AND_BOOKS } from '../services/index'
+import { ADD_BOOK, GET_AUTHORS, GET_BOOKS, GET_GENRES } from '../services/index'
 import { ReactComponent as Icon } from '../assets/img/pencil.svg'
 
 const NewBook = ({ show, setNotify }) => {
@@ -16,7 +15,14 @@ const NewBook = ({ show, setNotify }) => {
   const [genres, setGenres] = useState([])
 
   const [addBook] = useMutation(ADD_BOOK, {
-    refetchQueries: [{ query: GET_AUTHORS_AND_BOOKS }],
+    onError: error => {
+      setNotify(error.graphQLErrors[0].message)
+    },
+    refetchQueries: [
+      { query: GET_BOOKS },
+      { query: GET_AUTHORS },
+      { query: GET_GENRES },
+    ],
   })
 
   if (!show) {
@@ -46,9 +52,14 @@ const NewBook = ({ show, setNotify }) => {
   }
 
   const addGenre = () => {
-    setNotify(`Added genre: ${genre.value}`)
-    setGenres(genres.concat(genre.value))
+    setNotify(`Added genre: ${genre.value.toLowerCase()}`)
+    setGenres(genres.concat(genre.value.toLowerCase()))
     clearGenre()
+  }
+
+  const removeGenre = genre => {
+    setNotify(`Removed genre: ${genre}`)
+    setGenres(genres.filter(g => g !== genre))
   }
 
   return (
@@ -62,7 +73,7 @@ const NewBook = ({ show, setNotify }) => {
       <form
         className='grid grid-cols-1 md:grid-cols-2 md:gap-x-8 gap-y-4'
         onSubmit={submit}>
-        <LabelInput input={title} text='Title' />
+        <LabeledInput input={title} text='Title' />
         <LabeledInput input={author} text='Author' />
         <LabeledInput input={published} text='Published' />
         <div className='md:flex md:items-end'>
@@ -78,9 +89,17 @@ const NewBook = ({ show, setNotify }) => {
         <div className='py-2'>
           <span className='font-semibold'>Genres:</span>{' '}
           {genres.map((g, i) => (
-            <span key={i} className='inline-block ml-2 font-semibold'>
-              {g}
-            </span>
+            <div
+              key={i}
+              className='ml-2 bg-gray-800 bg-opacity-50 rounded px-2 font-semibold inline-flex items-center'>
+              <span>{g}</span>
+              <button
+                type='button'
+                className='ml-1 p-1'
+                onClick={() => removeGenre(g)}>
+                &times;
+              </button>
+            </div>
           ))}
         </div>
         <button

@@ -36,14 +36,13 @@ const resolvers = {
       }
 
       if (!args.author && args.genres) {
-        payload = await Book.find({ genres: { $in: [args.genres] } }).populate(
-          'author',
-          {
-            name: 1,
-            bookCount: 1,
-            born: 1,
-          }
-        )
+        payload = await Book.find({
+          genres: { $in: [args.genres] },
+        }).populate('author', {
+          name: 1,
+          bookCount: 1,
+          born: 1,
+        })
 
         return payload
       }
@@ -65,7 +64,7 @@ const resolvers = {
 
     allAuthors: () => Author.find({}),
 
-    me: (root, args, context) => context.currentUser,
+    me: async (root, args, context) => context.currentUser,
   },
 
   Mutation: {
@@ -104,6 +103,16 @@ const resolvers = {
       return payload
     },
 
+    delBook: async (root, args, context) => {
+      if (!context.currentUser) throw new UserInputError('Must be logged in!')
+      try {
+        await Book.deleteOne({ id: args.id })
+      } catch (e) {
+        throw new UserInputError(e.message, { invalidArgs: args })
+      }
+      return { message: 'Deleted' }
+    },
+
     editAuthor: async (root, args, context) => {
       if (!context.currentUser) throw new UserInputError('Must be logged in!')
       const author = await Author.findOne({ name: args.name })
@@ -135,8 +144,6 @@ const resolvers = {
       const passwordHash = await bcrypt.hash(args.password, saltRounds)
       const user = new User({
         username: args.username,
-        name: args.name,
-        favoriteGenre: args.favoriteGenre || null,
         passwordHash,
       })
       try {

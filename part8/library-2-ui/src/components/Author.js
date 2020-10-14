@@ -8,6 +8,9 @@ const Author = ({ author, currentUser, setNotify }) => {
   const [birth, , setBirth] = useField('number')
   const [editing, setEditing] = useState(false)
   const [editAuthor] = useMutation(EDIT_AUTHOR, {
+    onError: error => {
+      setNotify(error.graphQLErrors[0].message)
+    },
     refetchQueries: [{ query: GET_AUTHORS_AND_BOOKS }],
   })
   const inputEl = useRef(null)
@@ -58,7 +61,11 @@ const Author = ({ author, currentUser, setNotify }) => {
             ref={inputEl}
             {...birth}
             disabled
-            className='bg-transparent w-16 born'
+            className={
+              editing
+                ? 'bg-transparent w-16 born border border-orange-500 rounded'
+                : 'bg-transparent border border-transparent rounded w-16 born'
+            }
           />
           {editing && (
             <div className='inset-0 fixed z-minus' onClick={edit}></div>

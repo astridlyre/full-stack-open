@@ -24,7 +24,7 @@ const NavBar = ({ setPage, currentUser, logout }) => {
         showMenu={showMenu}
         setShowMenu={setShowMenu}
         currentUser={currentUser}
-        logout={logout}
+        logout={wrappedLogout}
       />
     </nav>
   )

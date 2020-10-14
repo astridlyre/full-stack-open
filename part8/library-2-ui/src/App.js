@@ -3,21 +3,17 @@ import Authors from './views/Authors'
 import Books from './views/Books'
 import NewBook from './views/NewBook'
 import Login from './views/Login'
+import Profile from './views/Profile'
 import NavBar from './components/NavBar'
 import Notification from './components/Notification'
 import Container from './components/Container'
-import { GET_AUTHORS_AND_BOOKS } from './services/index'
-import { useApolloClient, useQuery } from '@apollo/client'
-import { ReactComponent as LoaderIcon } from './assets/img/loader.svg'
+import { useApolloClient } from '@apollo/client'
 
 const App = () => {
-  const [page, setPage] = useState('authors')
+  const [page, setPage] = useState('books')
   const [notify, setNotify] = useState(null)
   const [timer, setTimer] = useState(null)
   const [currentUser, setCurrentUser] = useState(null)
-  const result = useQuery(GET_AUTHORS_AND_BOOKS)
-  const books = result.data?.allBooks || []
-  const authors = result.data?.allAuthors || []
   const client = useApolloClient()
 
   useEffect(() => {
@@ -40,7 +36,7 @@ const App = () => {
 
   const logout = () => {
     setNotification('Logged out')
-    if (page === 'add') setPage('authors')
+    if (page === 'add' || page === 'profile') setPage('authors')
     setCurrentUser(null)
     localStorage.removeItem('booktime-user-token')
     client.resetStore()
@@ -57,34 +53,30 @@ const App = () => {
         />
       </Container>
       {notify && <Notification text={notify} />}
-      {result.loading ? (
-        <Container>
-          <div className='w-full h-64 flex justify-center items-center text-orange-500'>
-            <LoaderIcon />
-          </div>
-        </Container>
-      ) : (
-        <Container>
-          <Authors
-            show={page === 'authors'}
-            authors={authors}
-            currentUser={currentUser}
-            setNotify={setNotification}
-          />
+      <Container>
+        <Authors
+          show={page === 'authors'}
+          currentUser={currentUser}
+          setNotify={setNotification}
+        />
 
-          <Books show={page === 'books'} books={books} />
+        <Books show={page === 'books'} />
 
-          {currentUser && (
-            <NewBook show={page === 'add'} setNotify={setNotification} />
-          )}
+        {currentUser && (
+          <NewBook show={page === 'add'} setNotify={setNotification} />
+        )}
 
-          <Login
-            show={page === 'login'}
-            setPage={setPage}
-            setCurrentUser={setCurrentUser}
-            setNotify={setNotification}
-          />
-        </Container>
+        {currentUser && (
+          <Profile show={page === 'profile'} setNotify={setNotification} />
+        )}
+
+        <Login
+          show={page === 'login'}
+          setPage={setPage}
+          setCurrentUser={setCurrentUser}
+          setNotify={setNotification}
+        />
+      </Container>
       )}
     </div>
   )

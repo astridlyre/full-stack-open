@@ -47,6 +47,15 @@ const MobileNavMenu = ({
             </button>
           </div>
         )}
+        {currentUser && (
+          <div className='p-4 z-20'>
+            <button
+              className='text-3xl focus:outline-none focus:text-orange-600 text-orange-500 font-semibold underline-effect'
+              onClick={() => handleClick('profile')}>
+              profile
+            </button>
+          </div>
+        )}
         <div className='p-4 z-20'>
           <button
             className='text-3xl focus:outline-none focus:text-orange-600 text-orange-500 font-semibold underline-effect'
