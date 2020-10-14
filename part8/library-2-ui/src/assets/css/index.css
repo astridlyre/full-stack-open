@@ -1,0 +1,17 @@
+@tailwind base;
+
+@tailwind components;
+
+.btn {
+  @apply px-8 py-2 text-sm font-semibold rounded;
+}
+
+.btn-primary {
+  @apply bg-orange-500 text-gray-100;
+}
+
+.btn:hover {
+  filter: brightness(0.9);
+}
+
+@tailwind utilities;

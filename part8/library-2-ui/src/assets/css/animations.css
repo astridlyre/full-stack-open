@@ -1,0 +1,124 @@
+.ease-out-effect {
+  transition: all 0.15s ease-out; }
+  .ease-out-effect :hover {
+    transition: all 0.1s ease-out; }
+
+.fade-slide-in-effect {
+  animation: fadeSlideIn 0.2s ease; }
+
+.fade-slide-up-effect {
+  animation: fadeUp 0.3s ease;
+  box-shadow: 0 5px 8px 1px #1a202c58;
+  opacity: 0.95; }
+
+.fade-slide-in-right-effect {
+  animation: fadeSlideInRight 0.2s ease; }
+
+.fade-slide-down-effect {
+  animation: fadeSlideDown 0.2s ease; }
+
+.scale-up {
+  animation: circleExpand 0.25s ease-out forwards; }
+
+.circle-el {
+  border-radius: 100%;
+  width: 4rem;
+  height: 4rem; }
+
+.rotater {
+  animation: rotateAnime 1.5s linear infinite; }
+
+.z-minus {
+  z-index: -1; }
+
+/* Chrome, Safari, Edge, Opera */
+input.born::-webkit-outer-spin-button,
+input.born::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+/* Firefox */
+input[type='number'].born {
+  -moz-appearance: textfield; }
+
+.underline-effect {
+  position: relative; }
+  .underline-effect:after {
+    position: absolute;
+    background-color: #ed8936;
+    content: '';
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%; }
+  .underline-effect:hover:after {
+    animation: underlineEffect 0.3s ease-out forwards; }
+
+@keyframes underlineEffect {
+  0% {
+    width: 0%; }
+  100% {
+    width: 100%; } }
+
+@keyframes fadeSlideIn {
+  0% {
+    transform: translateX(-15px);
+    opacity: 0; }
+  97% {
+    transform: translateX(2px);
+    opacity: 1; }
+  100% {
+    transform: translateX(0);
+    opacity: 1; } }
+
+@keyframes fadeSlideInRight {
+  0% {
+    transform: translateX(15px);
+    opacity: 0; }
+  97% {
+    transform: translateX(-2px);
+    opacity: 1; }
+  100% {
+    transform: translateX(0);
+    opacity: 1; } }
+
+@keyframes fadeSlideDown {
+  0% {
+    transform: translateY(-15px);
+    opacity: 0; }
+  97% {
+    transform: translateY(2px);
+    opacity: 1; }
+  100% {
+    transform: translateY(0);
+    opacity: 1; } }
+
+@keyframes circleExpand {
+  0% {
+    opacity: 0.7;
+    transform: scale(0); }
+  100% {
+    opacity: 1;
+    transform: scale(40); } }
+
+@keyframes rotateAnime {
+  0% {
+    transform: rotate(0);
+    opacity: 0.5; }
+  50% {
+    transform: rotate(180deg);
+    opacity: 1; }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.8; } }
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); }
+  95% {
+    transform: translateY(-2px);
+    opacity: 0.95; }
+  100% {
+    opacity: 0.95;
+    transform: translateY(0); } }
