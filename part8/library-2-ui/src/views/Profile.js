@@ -8,7 +8,7 @@ import { EDIT_USER, ME, GET_BOOKS } from '../services'
 import Book from '../components/Book'
 import { ReactComponent as LoaderIcon } from '../assets/img/loader.svg'
 
-const Profile = ({ show }) => {
+const Profile = ({ show, setNotify }) => {
   const [editing, setEditing] = useState(false)
   const [name, , setName] = useField('text')
   const [genre, , setGenre] = useField('text')
@@ -46,6 +46,7 @@ const Profile = ({ show }) => {
           genre: genre.value,
         },
       })
+      setNotify(`Name and Genre updated!`)
       setEditing(false)
       nameEl.current.disabled = true
       genreEl.current.disabled = true

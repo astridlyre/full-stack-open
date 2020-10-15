@@ -64,6 +64,7 @@ const App = () => {
       })
     },
   })
+
   useSubscription(AUTHOR_ADDED, {
     onSubscriptionData: ({ subscriptionData }) => {
       const addedAuthor = subscriptionData.data.authorAdded
