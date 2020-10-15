@@ -58,6 +58,12 @@ const typeDefs = gql`
     editUser(username: String!, name: String, genre: String): User
     login(username: String!, password: String!): Token
   }
+
+  type Subscription {
+    bookAdded: Book!
+    authorAdded: Author!
+    authorUpdated: Author!
+  }
 `
 
 module.exports = typeDefs

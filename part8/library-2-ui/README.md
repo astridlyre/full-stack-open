@@ -11,3 +11,7 @@ Implemented the function to add new books to the application. Made sure that aut
 #### 8.17 - 8.22
 
 The list of books works. Adding new books and changing birth year of an author requires user to be logged in. Implemented login functionality. Implemented a filter for the books with GraphQL. Added a profile page which enables a user to set their name and favourite genre. When a new book is added, the books view and books recommendation are updated accordingly.
+
+#### 8.24 - 8.25
+
+Implemented subscriptions on the client side. When new books are added, authors added, or authors updated, the client is notified of the change.

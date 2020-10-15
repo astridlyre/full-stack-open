@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useField } from '../hooks/index'
 import { ReactComponent as Icon } from '../assets/img/edit.svg'
 import { useMutation } from '@apollo/client'
-import { EDIT_AUTHOR, GET_AUTHORS_AND_BOOKS } from '../services/index'
+import { EDIT_AUTHOR, GET_AUTHORS } from '../services/index'
 
 const Author = ({ author, currentUser, setNotify }) => {
   const [birth, , setBirth] = useField('number')
@@ -11,7 +11,7 @@ const Author = ({ author, currentUser, setNotify }) => {
     onError: error => {
       setNotify(error.graphQLErrors[0].message)
     },
-    refetchQueries: [{ query: GET_AUTHORS_AND_BOOKS }],
+    refetchQueries: [{ query: GET_AUTHORS }],
   })
   const inputEl = useRef(null)
 

@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client'
 import { ADD_BOOK, GET_AUTHORS, GET_BOOKS, GET_GENRES } from '../services/index'
 import { ReactComponent as Icon } from '../assets/img/pencil.svg'
 
-const NewBook = ({ show, setNotify }) => {
+const NewBook = ({ show, setNotify, updateCacheWith }) => {
   const [title, clearTitle] = useField('text')
   const [author, clearAuthor] = useField('text')
   const [published, clearPublished] = useField('number')
@@ -18,11 +18,14 @@ const NewBook = ({ show, setNotify }) => {
     onError: error => {
       setNotify(error.graphQLErrors[0].message)
     },
-    refetchQueries: [
-      { query: GET_BOOKS },
-      { query: GET_AUTHORS },
-      { query: GET_GENRES },
-    ],
+    update: (store, response) => {
+      updateCacheWith(response.data.addBook, {
+        query: GET_BOOKS,
+        key: 'allBooks',
+        update: false,
+      })
+    },
+    refetchQueries: [{ query: GET_AUTHORS }, { query: GET_GENRES }],
   })
 
   if (!show) {

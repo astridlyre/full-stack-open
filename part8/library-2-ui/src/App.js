@@ -7,7 +7,15 @@ import Profile from './views/Profile'
 import NavBar from './components/NavBar'
 import Notification from './components/Notification'
 import Container from './components/Container'
-import { useApolloClient } from '@apollo/client'
+import { useApolloClient, useSubscription } from '@apollo/client'
+import {
+  BOOK_ADDED,
+  AUTHOR_ADDED,
+  AUTHOR_UPDATED,
+  GET_BOOKS,
+  GET_AUTHORS,
+  EDIT_AUTHOR,
+} from './services/index'
 
 const App = () => {
   const [page, setPage] = useState('books')
@@ -34,6 +42,50 @@ const App = () => {
     setTimer(newTimer)
   }
 
+  const updateCacheWith = (addedObject, { query, key, update }) => {
+    const includedIn = (set, object) => set.map(p => p.id).includes(object.id)
+    const dataInStore = client.readQuery({ query })
+    if (!update && !includedIn(dataInStore[key], addedObject)) {
+      client.writeQuery({
+        query,
+        data: { [key]: dataInStore[key].concat(addedObject) },
+      })
+    }
+  }
+
+  useSubscription(BOOK_ADDED, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      const addedBook = subscriptionData.data.bookAdded
+      setNotification(`${addedBook.title} added`)
+      updateCacheWith(addedBook, {
+        query: GET_BOOKS,
+        key: 'allBooks',
+        update: false,
+      })
+    },
+  })
+  useSubscription(AUTHOR_ADDED, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      const addedAuthor = subscriptionData.data.authorAdded
+      setNotification(`${addedAuthor.name} added`)
+      updateCacheWith(addedAuthor, {
+        query: GET_AUTHORS,
+        key: 'allAuthors',
+        update: false,
+      })
+    },
+  })
+  useSubscription(AUTHOR_UPDATED, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      const updatedAuthor = subscriptionData.data.authorUpdated
+      setNotification(`${updatedAuthor.name} updated`)
+      client.writeQuery({
+        query: EDIT_AUTHOR,
+        data: updatedAuthor,
+      })
+    },
+  })
+
   const logout = () => {
     setNotification('Logged out')
     if (page === 'add' || page === 'profile') setPage('authors')
@@ -58,12 +110,17 @@ const App = () => {
           show={page === 'authors'}
           currentUser={currentUser}
           setNotify={setNotification}
+          updateCacheWith={updateCacheWith}
         />
 
         <Books show={page === 'books'} />
 
         {currentUser && (
-          <NewBook show={page === 'add'} setNotify={setNotification} />
+          <NewBook
+            show={page === 'add'}
+            setNotify={setNotification}
+            updateCacheWith={updateCacheWith}
+          />
         )}
 
         {currentUser && (
@@ -77,7 +134,6 @@ const App = () => {
           setNotify={setNotification}
         />
       </Container>
-      )}
     </div>
   )
 }

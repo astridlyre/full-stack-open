@@ -3,9 +3,10 @@ import Page from '../components/Page'
 import PageTitle from '../components/PageTitle'
 import { useField } from '../hooks/index'
 import { ReactComponent as Icon } from '../assets/img/profile.svg'
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { EDIT_USER, ME, GET_BOOKS } from '../services'
 import Book from '../components/Book'
+import { ReactComponent as LoaderIcon } from '../assets/img/loader.svg'
 
 const Profile = ({ show }) => {
   const [editing, setEditing] = useState(false)
@@ -21,20 +22,15 @@ const Profile = ({ show }) => {
       { query: GET_BOOKS, variables: { genres: me?.genre } },
     ],
   })
-  const [getBooks, result] = useLazyQuery(GET_BOOKS)
-  const recommendedBooks = result.data?.allBooks || []
+  const getBooks = useQuery(GET_BOOKS, { variables: { genres: me?.genre } })
+  const recommendedBooks = getBooks.data?.allBooks || []
 
   useEffect(() => {
     if (me) {
       setName(me.name || '')
       setGenre(me.genre || '')
-      getBooks({
-        variables: {
-          genres: me.genre,
-        },
-      })
     }
-  }, [me, setName, setGenre, getBooks])
+  }, [me, setName, setGenre])
 
   if (!show) {
     return null
@@ -109,11 +105,13 @@ const Profile = ({ show }) => {
         </button>
       </form>
       <ul className='w-full mt-8'>
-        <PageTitle title='recommended books' />
-        {!recommendedBooks.length && (
-          <span className='text-gray-100 opacity-50'>
-            No recommendations at this time.
-          </span>
+        <div className='flex justify-between items-center relative w-full'>
+          <PageTitle title='recommended books' />
+        </div>
+        {getBooks.loading && (
+          <div className='w-full flex justify-center items-center text-orange-500'>
+            <LoaderIcon />
+          </div>
         )}
         {recommendedBooks.map(b => (
           <Book key={b.id} book={b} />

@@ -1,5 +1,13 @@
-import { ApolloClient, HttpLink, InMemoryCache, gql } from '@apollo/client'
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  gql,
+  split,
+} from '@apollo/client'
 import { setContext } from 'apollo-link-context'
+import { getMainDefinition } from '@apollo/client/utilities'
+import { WebSocketLink } from '@apollo/client/link/ws'
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('booktime-user-token')
@@ -13,20 +21,56 @@ const authLink = setContext((_, { headers }) => {
 
 const httpLink = new HttpLink({ uri: 'http://localhost:4000/graphql ' })
 
+const wsLink = new WebSocketLink({
+  uri: 'ws://localhost:4000/graphql',
+  options: { reconnect: true },
+})
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query)
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    )
+  },
+  wsLink,
+  authLink.concat(httpLink)
+)
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: authLink.concat(httpLink),
+  link: splitLink,
 })
+
+const AUTHOR_DETALS = gql`
+  fragment AuthorDetails on Author {
+    name
+    born
+    bookCount
+    id
+  }
+`
+
+const BOOK_DETALS = gql`
+  fragment BookDetails on Book {
+    title
+    published
+    author {
+      name
+    }
+    genres
+    id
+  }
+`
 
 const GET_AUTHORS = gql`
   query {
     allAuthors {
-      name
-      born
-      bookCount
-      id
+      ...AuthorDetails
     }
   }
+  ${AUTHOR_DETALS}
 `
 
 const GET_GENRES = gql`
@@ -40,35 +84,23 @@ const GET_GENRES = gql`
 const GET_BOOKS = gql`
   query allBooks($genres: String) {
     allBooks(genres: $genres) {
-      title
-      published
-      author {
-        name
-      }
-      genres
-      id
+      ...BookDetails
     }
   }
+  ${BOOK_DETALS}
 `
 
 const GET_AUTHORS_AND_BOOKS = gql`
   query {
     allAuthors {
-      name
-      born
-      bookCount
-      id
+      ...AuthorDetails
     }
     allBooks {
-      title
-      published
-      author {
-        name
-      }
-      genres
-      id
+      ...BookDetails
     }
   }
+  ${AUTHOR_DETALS}
+  ${BOOK_DETALS}
 `
 
 const ADD_BOOK = gql`
@@ -84,26 +116,19 @@ const ADD_BOOK = gql`
       author: $author
       genres: $genres
     ) {
-      title
-      published
-      author {
-        name
-      }
-      genres
-      id
+      ...BookDetails
     }
   }
+  ${BOOK_DETALS}
 `
 
 const EDIT_AUTHOR = gql`
   mutation editAuthor($name: String!, $born: Int!) {
     editAuthor(name: $name, born: $born) {
-      name
-      born
-      bookCount
-      id
+      ...AuthorDetails
     }
   }
+  ${AUTHOR_DETALS}
 `
 
 const DEL_BOOK = gql`
@@ -152,6 +177,33 @@ const LOGIN = gql`
   }
 `
 
+const BOOK_ADDED = gql`
+  subscription {
+    bookAdded {
+      ...BookDetails
+    }
+  }
+  ${BOOK_DETALS}
+`
+
+const AUTHOR_ADDED = gql`
+  subscription {
+    authorAdded {
+      ...AuthorDetails
+    }
+  }
+  ${AUTHOR_DETALS}
+`
+
+const AUTHOR_UPDATED = gql`
+  subscription {
+    authorUpdated {
+      ...AuthorDetails
+    }
+  }
+  ${AUTHOR_DETALS}
+`
+
 export {
   client,
   GET_BOOKS,
@@ -165,4 +217,7 @@ export {
   DEL_BOOK,
   ADD_USER,
   LOGIN,
+  BOOK_ADDED,
+  AUTHOR_ADDED,
+  AUTHOR_UPDATED,
 }

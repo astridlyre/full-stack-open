@@ -1,10 +1,11 @@
 const Book = require('../models/book')
 const Author = require('../models/author')
-const { UserInputError } = require('apollo-server')
+const { UserInputError, PubSub } = require('apollo-server')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const { SECRET } = require('../utils/config')
+const pubsub = new PubSub()
 
 const resolvers = {
   Query: {
@@ -76,6 +77,7 @@ const resolvers = {
         author.bookCount++
         try {
           await author.save()
+          pubsub.publish('AUTHOR_UPDATED', { authorUpdated: author })
         } catch (e) {
           throw new UserInputError(e.message, { invalidArgs: args })
         }
@@ -86,13 +88,13 @@ const resolvers = {
         })
         try {
           await author.save()
+          pubsub.publish('AUTHOR_ADDED', { authorAdded: author })
         } catch (e) {
           throw new UserInputError(e.message, { invalidArgs: args })
         }
       }
 
       const book = new Book({ ...args, author: author })
-      console.log(author._id)
 
       try {
         await book.save()
@@ -100,6 +102,7 @@ const resolvers = {
         throw new UserInputError(e.message, { invalidArgs: args })
       }
       const payload = book.populate('author', { name: 1 })
+      pubsub.publish('BOOK_ADDED', { bookAdded: payload })
       return payload
     },
 
@@ -122,6 +125,7 @@ const resolvers = {
       } catch (e) {
         throw new UserInputError(e.message, { invalidArgs: args })
       }
+      pubsub.publish('AUTHOR_UPDATED', { authorUpdated: author })
       return author
     },
 
@@ -167,6 +171,17 @@ const resolvers = {
         id: user._id,
       }
       return { value: jwt.sign(userForToken, SECRET) }
+    },
+  },
+  Subscription: {
+    bookAdded: {
+      subscribe: () => pubsub.asyncIterator(['BOOK_ADDED']),
+    },
+    authorAdded: {
+      subscribe: () => pubsub.asyncIterator(['AUTHOR_ADDED']),
+    },
+    authorUpdated: {
+      subscribe: () => pubsub.asyncIterator(['AUTHOR_UPDATED']),
     },
   },
 }
